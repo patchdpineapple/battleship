@@ -50,7 +50,12 @@ test("place ship should work", () => {
 
 test("coordinates should be set", () => {
   P1board.setBoardCoordinates();
-  expect(P1board.boardCoordinates[0]).toEqual({ pos: { x: 1, y: 1 }, ship: 'none', isAttacked: false });
+  expect(P1board.boardCoordinates[5]).toEqual({ pos: { x: 1, y: 6 }, ship: 'none', isAttacked: false });
+  expect(P1board.boardCoordinates[0]).toEqual({ pos: { x: 1, y: 1 }, ship: 'Patrol', isAttacked: false });
+  expect(P1board.boardCoordinates[48]).toEqual({ pos: { x: 5, y: 9 }, ship: 'Carrier', isAttacked: false });
+
+
+  
 });
 
 
