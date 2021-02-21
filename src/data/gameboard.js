@@ -1,10 +1,10 @@
 import shipFactory from "./ship";
 
-const gameboardFactory = (shipsData) => {
+const gameboardFactory = () => {
   
   let boardCoordinates = [];
   let ships = [];
-  ships = shipsData;
+ 
 
   const setBoardCoordinates = () => {
     //this method sets the gameboard coordinates and adds the ship coordinates to gameboard
@@ -18,7 +18,6 @@ const gameboardFactory = (shipsData) => {
   const setShipCoordinates = () => {
     //iterates ships objects, checks their position and marks them on the gameboard
     for (const [key, value] of Object.entries(ships)) {
-      console.log(`${key}: ${value}`);
       value.coords.map(coord => {
           let x = coord.pos.x;
           let y = coord.pos.y;
@@ -44,10 +43,35 @@ const gameboardFactory = (shipsData) => {
     return "ship placed";
   };
 
-  const receiveAttack = () => {
+  const receiveAttack = (targetX, targetY) => {
     //takes a coordinate and determines whether or not the attack hit a ship. also records misses
-    return "ship placed";
+    boardCoordinates.forEach(coord => {
+      if (coord.pos.x === targetX && coord.pos.y === targetY) {
+        coord.isAttacked = true;
+        if(coord.ship === 'none') {
+          coord.status = 'miss';
+        } else {
+          coord.status = 'hit';
+          ships.forEach(ship => {
+            if(ship.type === coord.ship){
+              ship.hit(targetX,targetY);
+            }
+          });
+        }
+      }
+    });
   };
+
+  const reportShips = () => {
+    //this method should return true if all ships are sunk
+    let sunkShips = 0;
+    ships.map(ship => {
+      if(ship.isSunk() === true) sunkShips++;
+      return ship;
+    });
+
+    return sunkShips === ships.length;
+  }
 
   return {
     ships,
@@ -56,7 +80,7 @@ const gameboardFactory = (shipsData) => {
     setShipCoordinates,
     placeShip,
     receiveAttack,
-    
+    reportShips
   };
 };
 
