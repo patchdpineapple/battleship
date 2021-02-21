@@ -1,8 +1,10 @@
 import shipFactory from "./ship";
 
-const gameboardFactory = (ships) => {
+const gameboardFactory = (shipsData) => {
   
   let boardCoordinates = [];
+  let ships = [];
+  ships = shipsData;
 
   const setBoardCoordinates = () => {
     //this method sets the gameboard coordinates and adds the ship coordinates to gameboard
@@ -11,7 +13,9 @@ const gameboardFactory = (ships) => {
         boardCoordinates.push({ pos: { x: i, y: j }, ship: 'none', isAttacked: false });
       }
     }
-
+  };
+  
+  const setShipCoordinates = () => {
     //iterates ships objects, checks their position and marks them on the gameboard
     for (const [key, value] of Object.entries(ships)) {
       console.log(`${key}: ${value}`);
@@ -25,8 +29,18 @@ const gameboardFactory = (ships) => {
     }
   };
 
-  const placeShip = (ship) => {
+  
+  const placeShip = (type, length, coords) => {
     //places a ship into its coordinates on the board
+    const newShip = shipFactory(type, length, coords);
+    ships.push(newShip);
+    newShip.coords.map(coord => {
+      let x = coord.pos.x;
+      let y = coord.pos.y;
+     let tempCoord =  boardCoordinates.findIndex(coord => (coord.pos.x === x && coord.pos.y === y));
+     boardCoordinates[tempCoord].ship = newShip.type;
+     return coord;
+  });
     return "ship placed";
   };
 
@@ -39,6 +53,7 @@ const gameboardFactory = (ships) => {
     ships,
     boardCoordinates,
     setBoardCoordinates,
+    setShipCoordinates,
     placeShip,
     receiveAttack,
     

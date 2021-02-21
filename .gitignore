@@ -24,3 +24,4 @@ yarn-error.log*
 
 ignore/
 src/data/shipsandbox.js
+src/data/gameboardsandbox.js
