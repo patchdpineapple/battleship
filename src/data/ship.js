@@ -10,7 +10,6 @@ const shipFactory = (type, length, coords) => {
   };
 
   const isSunk = () => {
-  console.log(cpu.aiAttack());
   //this method checks all coordinates and returns true if all coordinates were hit
     let hitChecker = 0;
     for (let coord = 0; coord < coords.length; coord++) {

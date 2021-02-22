@@ -57,7 +57,7 @@ const Carrier = shipFactory("Carrier", 5, [
 let P1board;
 P1board = gameboardFactory();
 
-test("coordinates should be set, and ships are marked on the coordinates", () => {
+test("10x10 coordinates should be set", () => {
   P1board.setBoardCoordinates();
   expect(P1board.boardCoordinates.length).toBe(100);
 });
