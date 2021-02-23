@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import "./Game.css";
 
-function Panel({ handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
+function Panel({ type, handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
   const onPlayerAttack = () => {
-    console.log(status);
     handlePlayerAttack(coords.x, coords.y);
   };
 
@@ -21,12 +20,19 @@ function Panel({ handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
   //   </>
   // );
 
+
   if (ship) {
     return (
       <>
-        {status === "hit" ? <button className="Panel hit">x</button> : null}
+        {status === "hit" ? <button className="Panel ship hit">x</button> : null}
         {status === null ? (
-          <button className="Panel" onClick={onPlayerAttack} />
+          <button className="Panel ship" onClick={()=>{
+            if(type === "cpu"){
+              return onPlayerAttack();
+            }else {
+              return console.log(ship, coords.x, coords.y);
+            }
+          }} />
         ) : null}
       </>
     );
@@ -35,7 +41,13 @@ function Panel({ handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
       <>
         {status === "miss" ? <button className="Panel miss">-</button> : null}
         {status === null ? (
-          <button className="Panel" onClick={onPlayerAttack} />
+          <button className="Panel" onClick={()=>{
+            if(type === "cpu"){
+              return onPlayerAttack();
+            }else {
+              return console.log(ship, coords.x, coords.y);
+            }
+          }} />
         ) : null}
       </>
     );
@@ -56,6 +68,7 @@ function Game({ player, CPU, handlePlayerAttack }) {
             {player.board.boardCoordinates.map((coord, i) => (
               <Panel
                 key={i}
+                type="player"
                 coords={coord.pos}
                 ship={coord.ship}
                 status={coord.status}
@@ -70,6 +83,7 @@ function Game({ player, CPU, handlePlayerAttack }) {
             {CPU.board.boardCoordinates.map((coord, i) => (
               <Panel
                 key={i}
+                type="cpu"
                 handlePlayerAttack={handlePlayerAttack}
                 coords={coord.pos}
                 ship={coord.ship}
