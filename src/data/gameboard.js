@@ -84,7 +84,7 @@ const gameboardFactory = () => {
           let sunkCoord = boardCoordinates.findIndex(
             (boardCoord) =>
               boardCoord.pos.x === shipCoord.pos.x &&
-              boardCoord.pos.y === shipCoord.pos.x
+              boardCoord.pos.y === shipCoord.pos.y
           );
           boardCoordinates[sunkCoord].status = "sunk";
         });

@@ -77,9 +77,9 @@ test("placeShip() should create a new ship and add into the board", () => {
   });
 
   P1board.placeShip("Submarine", 3, [
-    { pos: { x: 1, y: 3 }, isHit: false },
-    { pos: { x: 1, y: 4 }, isHit: false },
-    { pos: { x: 1, y: 5 }, isHit: false },
+    { pos: { x: 1, y: 6 }, isHit: false },
+    { pos: { x: 1, y: 7 }, isHit: false },
+    { pos: { x: 1, y: 8 }, isHit: false },
   ]);
   expect(P1board.ships.length).toBe(2);
 });
@@ -96,18 +96,20 @@ test("receiveAttack() should update gameboard coordinate isAttacked status to tr
   expect(P1board.boardCoordinates[2].status).toBe("miss");
 });
 
-// test("updateToSunk() should change coords status to sunk if a ship with same coords is sunk", () => {
-//   P1board.updateToSunk();
-//   console.log(P1board.ships[0].isSunk());
-//   console.log(P1board.boardCoordinates[0].ship);
-//   console.log(P1board.boardCoordinates[10].ship);
+test("updateToSunk() should change coords status to sunk if a ship with same coords is sunk", () => {
+  P1board.updateToSunk();
+  expect(P1board.boardCoordinates[0].status).toBe("sunk");
+  expect(P1board.boardCoordinates[1].status).toBe("sunk");
 
-//   console.log(P1board.boardCoordinates[0].status);
-//   console.log(P1board.boardCoordinates[10].status);
+  P1board.receiveAttack(1, 6);
+  P1board.receiveAttack(1, 7);
+  P1board.receiveAttack(1, 8);
 
-//   expect(P1board.boardCoordinates[0].status).toBe("sunk");
-//   expect(P1board.boardCoordinates[10].status).toBe("sunk");
-// });
+  P1board.updateToSunk();
+  expect(P1board.boardCoordinates[50].status).toBe("sunk");
+  expect(P1board.boardCoordinates[60].status).toBe("sunk");
+  expect(P1board.boardCoordinates[70].status).toBe("sunk");
+});
 
 test("reportShips() should return true when no more ships are alive", () => {
   P1board.receiveAttack(1, 3);
