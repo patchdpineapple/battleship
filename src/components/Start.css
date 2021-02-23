@@ -22,3 +22,23 @@
     color: #d81159;
     font-size: 3vw;
 } 
+
+@media (max-width: 414px) {
+    
+
+    .Start > strong {
+        margin-top: 25vh;
+        font-size: 20vw;
+    }
+
+    .Start > p {
+        font-size: 5vw;
+
+    }
+
+    .Start > button {
+        
+        font-size: 6vw;
+    } 
+
+}

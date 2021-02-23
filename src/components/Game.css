@@ -46,7 +46,7 @@
   box-shadow: 0px 0px 5px rgb(0, 0, 0);
 }
 
-.board.cpu_board{
+.board.cpu_board {
   background-color: #1b1b1e;
 }
 
@@ -62,9 +62,7 @@
 }
 
 .cpu_board .Panel {
-  
   cursor: pointer;
-
 }
 
 .cpu_board .Panel:hover {
@@ -77,15 +75,14 @@
 
 .ship {
   background-color: rgb(58, 255, 19);
-
 }
 
 .hit {
-  color:  red;
+  color: red;
 }
 
 .miss {
-  color:  black;
+  color: black;
 }
 
 .sunk {
@@ -93,19 +90,22 @@
   background-color: rgb(37, 37, 37);
 }
 
-@media (max-width: 414px) {
+@media (max-width: 440px) {
   .Panel {
-   
     width: 21px;
     height: 21px;
-  
   }
 }
 
-@media (max-width: 1200px) {
-
-  .board_container {
+@media (max-width: 1115) {
+  /* .board_container {
     flex-flow: column wrap;
+  } */
+
+  .Panel {
+   
+    width: 30px;
+    height: 30px;
+  
   }
- 
 }
