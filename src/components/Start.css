@@ -10,15 +10,15 @@
 
 .Start > strong {
     margin-top: 25vh;
-    font-size: 150px;
+    font-size: 13vw;
 }
 
 .Start > p {
-    margin-top: -35px;
+    margin-top: -2vw;
 }
 
 .Start > button {
-    margin-top: 20vh;
+    margin-top: 15vh;
     color: #d81159;
-    font-size: 36px;
+    font-size: 3vw;
 } 

@@ -58,9 +58,7 @@ function Game({ player, CPU, handlePlayerAttack }) {
   return (
     <div className="Game">
       <h1 className="logo">BATTLESHIP</h1>
-      <div className="status_container">
-          <div className="status_box">Your turn</div>
-        </div>
+      
       <div className="board_container">
         <div className="player_container">
           <p style={{ fontSize: "30px" }}>Player</p>
@@ -76,7 +74,9 @@ function Game({ player, CPU, handlePlayerAttack }) {
             ))}
           </div>
         </div>
-        
+        <div className="status_container">
+          <div className="status_box">Your turn</div>
+        </div>
         <div className="cpu_container">
           <p style={{ fontSize: "30px" }}>CPU</p>
           <div className="board cpu_board">
