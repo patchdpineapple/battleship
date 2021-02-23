@@ -1,36 +1,22 @@
 import React, { useEffect } from "react";
 import "./Game.css";
 
-function Panel({ type, handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
+function Panel({ index, type, handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
   const onPlayerAttack = () => {
     handlePlayerAttack(coords.x, coords.y);
   };
-
-  // return (
-  //   <>
-  //      {/* {status === "hit" ?
-  //     <button className="Panel hit">x</button>
-  //     : status === "miss" ?
-  //     <button className="Panel miss">o</button>
-  //     : <button className="Panel" onClick={onPlayerAttack}></button>  */}
-
-  //   {console.log(status)}
-  //     <button className={`Panel ${status === "miss" ? "miss" : null}`} onClick={onPlayerAttack}>X</button>
-
-  //   </>
-  // );
 
 
   if (ship) {
     return (
       <>
-        {status === "hit" ? <button className="Panel ship hit">x</button> : null}
-        {status === null ? (
-          <button className="Panel ship" onClick={()=>{
+        {status === "hit" ? <button className={`Panel hit ${type === "player" ? "ship" : null}`}>x</button> : null}
+        {status === null ? (        
+          <button className={`Panel ${type === "player" ? "ship" : null}`} onClick={()=>{
             if(type === "cpu"){
               return onPlayerAttack();
             }else {
-              return console.log(ship, coords.x, coords.y);
+              return console.log(ship, coords.x, coords.y, index);
             }
           }} />
         ) : null}
@@ -45,7 +31,7 @@ function Panel({ type, handlePlayerAttack, handleCPUAttack, coords, ship, status
             if(type === "cpu"){
               return onPlayerAttack();
             }else {
-              return console.log(ship, coords.x, coords.y);
+              return console.log(ship, coords.x, coords.y, index);
             }
           }} />
         ) : null}
@@ -54,7 +40,7 @@ function Panel({ type, handlePlayerAttack, handleCPUAttack, coords, ship, status
   }
 }
 
-function Game({ player, CPU, handlePlayerAttack }) {
+function Game({ player, CPU, handlePlayerAttack, handleCPUAttack, toggleResult}) {
   return (
     <div className="Game">
       <h1 className="logo">BATTLESHIP</h1>
@@ -66,6 +52,7 @@ function Game({ player, CPU, handlePlayerAttack }) {
             {player.board.boardCoordinates.map((coord, i) => (
               <Panel
                 key={i}
+                index={i}
                 type="player"
                 coords={coord.pos}
                 ship={coord.ship}
@@ -83,6 +70,7 @@ function Game({ player, CPU, handlePlayerAttack }) {
             {CPU.board.boardCoordinates.map((coord, i) => (
               <Panel
                 key={i}
+                index={i}
                 type="cpu"
                 handlePlayerAttack={handlePlayerAttack}
                 coords={coord.pos}

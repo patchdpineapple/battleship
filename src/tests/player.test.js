@@ -30,18 +30,18 @@ test("player placing ships work", () => {
   ]);
 
   expect(player.board.boardCoordinates[0].ship).toBe("Patrol");
-  expect(player.board.boardCoordinates[10].ship).toBe("Patrol");
-  expect(cpu.board.boardCoordinates[2].ship).toBe("Submarine");
-  expect(cpu.board.boardCoordinates[3].ship).toBe("Submarine");
-  expect(cpu.board.boardCoordinates[4].ship).toBe("Submarine");
+  expect(player.board.boardCoordinates[1].ship).toBe("Patrol");
+  expect(cpu.board.boardCoordinates[20].ship).toBe("Submarine");
+  expect(cpu.board.boardCoordinates[30].ship).toBe("Submarine");
+  expect(cpu.board.boardCoordinates[40].ship).toBe("Submarine");
 });
 
 test("playerAttack() updates opponent board status", () => {
   player.playerAttack(1, 3, cpu);
   player.playerAttack(1, 6, cpu);
-  expect(cpu.board.boardCoordinates[2].isAttacked).toBe(true);
-  expect(cpu.board.boardCoordinates[2].status).toBe("hit");
-  expect(cpu.board.boardCoordinates[5].status).toBe("miss");
+  expect(cpu.board.boardCoordinates[20].isAttacked).toBe(true);
+  expect(cpu.board.boardCoordinates[20].status).toBe("hit");
+  expect(cpu.board.boardCoordinates[50].status).toBe("miss");
 
 });
 

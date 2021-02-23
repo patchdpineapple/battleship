@@ -17,10 +17,10 @@ const gameboardFactory = () => {
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
         boardCoordinates.push({
-          pos: { x: i, y: j },
+          pos: { x: j, y: i },
           ship: null,
           isAttacked: false,
-          status: null
+          status: null,
         });
       }
     }
@@ -76,6 +76,22 @@ const gameboardFactory = () => {
     });
   };
 
+  const updateToSunk = () => {
+    //checks for all ships that are sunk and updates board coordinates that has the sunk ships
+    ships.map((ship) => {
+      if (ship.isSunk()) {
+        ship.coords.map((shipCoord) => {
+          let sunkCoord = boardCoordinates.findIndex(
+            (boardCoord) =>
+              boardCoord.pos.x === shipCoord.pos.x &&
+              boardCoord.pos.y === shipCoord.pos.x
+          );
+          boardCoordinates[sunkCoord].status = "sunk";
+        });
+      }
+    });
+  };
+
   const reportShips = () => {
     //this method should return true if all ships are sunk
     let sunkShips = 0;
@@ -95,6 +111,7 @@ const gameboardFactory = () => {
     placeShip,
     receiveAttack,
     reportShips,
+    updateToSunk
   };
 };
 

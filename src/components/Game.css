@@ -46,6 +46,10 @@
   box-shadow: 0px 0px 5px rgb(0, 0, 0);
 }
 
+.board.cpu_board{
+  background-color: #1b1b1e;
+}
+
 .Panel {
   display: inline-block;
   border: none;
