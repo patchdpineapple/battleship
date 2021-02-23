@@ -1,59 +1,85 @@
 .Game {
-
+}
+.logo {
+  padding: 10px;
 }
 
 .status_container {
-display: flex;
-justify-content: center;
-margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .status_box {
-    border: 5px solid #1b1b1e;
-    padding: 10px;
-text-align: center;
-font-size: 24px;
+  border: 5px solid #1b1b1e;
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+  width: 10vw;
+
 }
 
 .board_container {
-    display:flex;
-    flex-flow: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.player_container, .cpu_container {
-    text-align: center;
+.player_container,
+.cpu_container {
+  text-align: center;
 }
 
 .board {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: auto;
-    justify-items: center;
-    grid-gap: 5px;
-    align-items: center;
-    padding: 15px;
-    background-color: #1b1b1e;
-    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto;
+  justify-items: center;
+  grid-gap: 5px;
+  align-items: center;
+  padding: 15px;
+  background-color: #1b1b1e;
+  box-shadow: 0px 0px 5px rgb(0, 0, 0);
 }
-
-
 
 .Panel {
-    width: 22px;
-    height: 22px;
-    background-color: rgb(13, 198, 255);
+  display: inline-block;
+  border: none;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(13, 198, 255);
+  text-decoration: none;
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-
-
-.cpu_board .Panel{
-    width: 30px;
-    height: 30px;
+.cpu_board .Panel {
+  
+  cursor: pointer;
 
 }
 
 .cpu_board .Panel:hover {
-    background-color: rgb(255, 171, 14);
-    
+  background-color: rgb(255, 171, 14);
+}
+
+.Panel:active {
+  transform: scale(0.98);
+}
+
+.hit {
+  color:  red;
+}
+
+.miss {
+  color:  black;
+}
+
+@media (max-width: 414px) {
+  .Panel {
+   
+    width: 25px;
+    height: 25px;
+  
+  }
 }

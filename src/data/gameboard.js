@@ -18,8 +18,9 @@ const gameboardFactory = () => {
       for (let j = 1; j <= 10; j++) {
         boardCoordinates.push({
           pos: { x: i, y: j },
-          ship: "none",
+          ship: null,
           isAttacked: false,
+          status: null
         });
       }
     }
@@ -61,7 +62,7 @@ const gameboardFactory = () => {
     boardCoordinates.forEach((coord) => {
       if (coord.pos.x === targetX && coord.pos.y === targetY) {
         coord.isAttacked = true;
-        if (coord.ship === "none") {
+        if (coord.ship === null) {
           coord.status = "miss";
         } else {
           coord.status = "hit";

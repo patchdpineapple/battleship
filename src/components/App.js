@@ -26,10 +26,34 @@ function App() {
     setShowGame(!showGame);
   };
 
+  const handlePlayerAttack = (targetX, targetY) => {
+    //takes a pair of coordinates and attacks opponent board 1);
+    let tempPlayer = player;
+    let tempCPU = CPU;
+    tempPlayer.playerAttack(targetX, targetY, tempCPU); 
+
+    // console.log(targetX, targetY);
+    // let atkIndex = tempCPU.board.boardCoordinates.findIndex(
+    // (coord) => coord.pos.x === targetX && coord.pos.y === targetY);
+    // console.log(tempCPU.board.boardCoordinates[atkIndex]);
+
+    setCPU({...tempCPU}); 
+  };
+
+  const handleCPUAttack = (targetX, targetY) => {
+    //takes a pair of coordinates and attacks opponent board
+    let tempPlayer = player;
+    let tempCPU = CPU;
+    tempCPU.aiAttack(tempPlayer)
+    setPlayer({...tempPlayer});
+  };
+
+
+
   return (
     <div className="App">
       {showStart && <Start onToggleStart={toggleStart} />}
-      {showGame && <Game player={player} CPU={CPU}/>}
+      {showGame && <Game player={player} CPU={CPU} handlePlayerAttack={handlePlayerAttack} handleCPUAttack={handleCPUAttack}/>}
     </div>
   );
 }

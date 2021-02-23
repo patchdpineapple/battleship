@@ -17,7 +17,7 @@ const playerFactory = (board) => {
 
   const playerAttack = (targetX, targetY, cpu) => {
     cpu.board.receiveAttack(targetX, targetY);
-    return { x: targetX, y: targetY };
+    return cpu;
   };
 
   const aiAttack = (player) => {

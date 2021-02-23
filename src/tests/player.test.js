@@ -38,8 +38,11 @@ test("player placing ships work", () => {
 
 test("playerAttack() updates opponent board status", () => {
   player.playerAttack(1, 3, cpu);
+  player.playerAttack(1, 6, cpu);
   expect(cpu.board.boardCoordinates[2].isAttacked).toBe(true);
   expect(cpu.board.boardCoordinates[2].status).toBe("hit");
+  expect(cpu.board.boardCoordinates[5].status).toBe("miss");
+
 });
 
 test("aiAttack() updates player board status", () => {

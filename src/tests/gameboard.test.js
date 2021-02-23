@@ -73,6 +73,7 @@ test("placeShip() should create a new ship and add into the board", () => {
     pos: { x: 1, y: 1 },
     ship: "Patrol",
     isAttacked: false,
+    status: null
   });
 
   P1board.placeShip("Submarine", 3, [
