@@ -74,6 +74,9 @@ const gameboardFactory = () => {
         }
       }
     });
+
+    //update all sunk coordinates satus to 'sunk'
+    updateToSunk();
   };
 
   const updateToSunk = () => {

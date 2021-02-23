@@ -10,6 +10,7 @@ function Panel({ index, type, handlePlayerAttack, handleCPUAttack, coords, ship,
   if (ship) {
     return (
       <>
+        {status === "sunk" ? <button className="Panel sunk">x</button> : null}
         {status === "hit" ? <button className={`Panel hit ${type === "player" ? "ship" : null}`}>x</button> : null}
         {status === null ? (        
           <button className={`Panel ${type === "player" ? "ship" : null}`} onClick={()=>{

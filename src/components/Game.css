@@ -88,6 +88,11 @@
   color:  black;
 }
 
+.sunk {
+  color: rgb(255, 65, 65);
+  background-color: rgb(37, 37, 37);
+}
+
 @media (max-width: 414px) {
   .Panel {
    
