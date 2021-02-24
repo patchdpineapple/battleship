@@ -41,9 +41,16 @@ function Panel({ index, type, handlePlayerAttack, handleCPUAttack, coords, ship,
   }
 }
 
-function Game({ player, CPU, handlePlayerAttack, handleCPUAttack, toggleResult}) {
+function Game({ player, CPU, turn, handlePlayerAttack, handleCPUAttack, toggleResult}) {
+
+  useEffect( //checks if it is cpu's turn and attacks player's board
+    ()=> {
+      if(turn === "cpu") handleCPUAttack();
+    }, [handleCPUAttack, turn]
+  );
+
   return (
-    <div className="Game">
+    <div className="Game" >
       <h1 className="logo">BATTLESHIP</h1>
       
       <div className="board_container">
