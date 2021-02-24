@@ -26,20 +26,20 @@ const gameboardFactory = () => {
     }
   };
 
-  const setShipCoordinates = () => {
-    //iterates ships objects, checks their position and marks them on the gameboard
-    for (const [key, value] of Object.entries(ships)) {
-      value.coords.map((coord) => {
-        let x = coord.pos.x;
-        let y = coord.pos.y;
-        let tempCoord = boardCoordinates.findIndex(
-          (coord) => coord.pos.x === x && coord.pos.y === y
-        );
-        boardCoordinates[tempCoord].ship = value.type;
-        return coord;
-      });
-    }
-  };
+  // const setShipCoordinates = () => {
+  //   //iterates ships objects, checks their position and marks them on the gameboard
+  //   for (const [key, value] of Object.entries(ships)) {
+  //     value.coords.map((coord) => {
+  //       let x = coord.pos.x;
+  //       let y = coord.pos.y;
+  //       let tempCoord = boardCoordinates.findIndex(
+  //         (coord) => coord.pos.x === x && coord.pos.y === y
+  //       );
+  //       boardCoordinates[tempCoord].ship = value.type;
+  //       return coord;
+  //     });
+  //   }
+  // };
 
   const placeShip = (type, length, coords) => {
     //places a new ship into its coordinates on the board
@@ -108,6 +108,7 @@ const gameboardFactory = () => {
 
   const resetBoard = () => {
     boardCoordinates = [];
+    setBoardCoordinates();
     ships = [];
   };
 
@@ -116,7 +117,6 @@ const gameboardFactory = () => {
     ships,
     boardCoordinates,
     setBoardCoordinates,
-    setShipCoordinates,
     placeShip,
     receiveAttack,
     reportShips,

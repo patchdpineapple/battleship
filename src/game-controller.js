@@ -12,6 +12,12 @@ const game_controller = (function () {
     }
   }
 
+  function resetGame() {
+    Player.board.resetBoard();
+    CPU.board.resetBoard();
+    turn="player";
+  }
+
   function setShips() {
     //create player ships
     Player.board.setBoardCoordinates();
@@ -87,6 +93,7 @@ const game_controller = (function () {
     CPU,
     turn,
     start,
+    resetGame,
   };
 })();
 
