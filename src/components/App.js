@@ -52,19 +52,29 @@ function App() {
 
   const handleCPUAttack = () => {
     //takes a pair of coordinates and attacks opponent board
+
     let tempPlayer = player;
     let tempCPU = CPU;
-    tempCPU.aiAttack(tempPlayer)
-    setPlayer({...tempPlayer});
-    setTurn("player");
+    tempCPU.aiAttack(tempPlayer);
+
+    setTimeout(()=>{
+    toggleTurn();
+      setPlayer({...tempPlayer});
+    },1500);
+    
   };
+
+  const toggleTurn = () => {
+    if(turn === "cpu") setTurn("player");
+    else setTurn("cpu");
+  }
 
 
 
   return (
     <div className="App">
       {showStart && <Start onToggleStart={toggleStart} />}
-      {showGame && <Game player={player} CPU={CPU} turn={turn} handlePlayerAttack={handlePlayerAttack} handleCPUAttack={handleCPUAttack} toggleResult={toggleResult} />}
+      {showGame && <Game player={player} CPU={CPU} turn={turn} toggleTurn={toggleTurn} handlePlayerAttack={handlePlayerAttack} handleCPUAttack={handleCPUAttack} toggleResult={toggleResult} />}
     </div>
   );
 }

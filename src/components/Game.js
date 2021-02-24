@@ -1,25 +1,39 @@
 import React, { useEffect } from "react";
 import "./Game.css";
 
-function Panel({ index, type, handlePlayerAttack, handleCPUAttack, coords, ship, status }) {
+function Panel({
+  index,
+  turn,
+  type,
+  handlePlayerAttack,
+  coords,
+  ship,
+  status,
+}) {
   const onPlayerAttack = () => {
     handlePlayerAttack(coords.x, coords.y);
-  };
-
-
+  }
+    
   if (ship) {
     return (
       <>
         {status === "sunk" ? <button className="Panel sunk">x</button> : null}
-        {status === "hit" ? <button className={`Panel hit ${type === "player" ? "ship" : null}`}>x</button> : null}
-        {status === null ? (        
-          <button className={`Panel ${type === "player" ? "ship" : null}`} onClick={()=>{
-            if(type === "cpu"){
-              return onPlayerAttack();
-            }else {
-              return console.log(ship, coords.x, coords.y, index);
-            }
-          }} />
+        {status === "hit" ? (
+          <button className={`Panel hit ${type === "player" ? "ship" : null}`}>
+            x
+          </button>
+        ) : null}
+        {status === null ? (
+          <button
+            className={`Panel ${type === "player" ? "ship" : null}`}
+            onClick={() => {
+              if (type === "cpu" && turn === "player") {
+                return onPlayerAttack();
+              } else {
+                return console.log(ship, coords.x, coords.y, index);
+              }
+            }}
+          />
         ) : null}
       </>
     );
@@ -28,31 +42,44 @@ function Panel({ index, type, handlePlayerAttack, handleCPUAttack, coords, ship,
       <>
         {status === "miss" ? <button className="Panel miss">-</button> : null}
         {status === null ? (
-          <button className="Panel" onClick={()=>{
-            if(type === "cpu"){
-              return onPlayerAttack();
-            }else {
-              return console.log(ship, coords.x, coords.y, index);
-            }
-          }} />
+          <button
+            className="Panel"
+            onClick={() => {
+              if (type === "cpu" && turn === "player") {
+                return onPlayerAttack();
+              } else {
+                return console.log(ship, coords.x, coords.y, index);
+              }
+            }}
+          />
         ) : null}
       </>
     );
   }
 }
 
-function Game({ player, CPU, turn, handlePlayerAttack, handleCPUAttack, toggleResult}) {
-
-  useEffect( //checks if it is cpu's turn and attacks player's board
-    ()=> {
-      if(turn === "cpu") handleCPUAttack();
-    }, [handleCPUAttack, turn]
+function Game({
+  player,
+  CPU,
+  turn,
+  toggleTurn,
+  handlePlayerAttack,
+  handleCPUAttack,
+  toggleResult,
+}) {
+  useEffect(
+    //checks if it is cpu's turn and attacks player's board
+    () => {
+      if (turn === "cpu") {
+        handleCPUAttack();
+      }
+    },
+    [handleCPUAttack, turn]
   );
 
   return (
-    <div className="Game" >
+    <div className="Game">
       <h1 className="logo">BATTLESHIP</h1>
-      
       <div className="board_container">
         <div className="player_container">
           <p style={{ fontSize: "30px" }}>Player</p>
@@ -70,7 +97,9 @@ function Game({ player, CPU, turn, handlePlayerAttack, handleCPUAttack, toggleRe
           </div>
         </div>
         <div className="status_container">
-          <div className="status_box">Your turn</div>
+          <div className="status_box">
+            {turn === "player" ? "Player turn" : "CPU is attacking"}
+          </div>
         </div>
         <div className="cpu_container">
           <p style={{ fontSize: "30px" }}>CPU</p>
@@ -79,6 +108,7 @@ function Game({ player, CPU, turn, handlePlayerAttack, handleCPUAttack, toggleRe
               <Panel
                 key={i}
                 index={i}
+                turn={turn}
                 type="cpu"
                 handlePlayerAttack={handlePlayerAttack}
                 coords={coord.pos}
