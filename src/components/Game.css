@@ -90,22 +90,24 @@
   background-color: rgb(37, 37, 37);
 }
 
-@media (max-width: 440px) {
-  .Panel {
-    width: 21px;
-    height: 21px;
-  }
-}
+
 
 @media (max-width: 1115) {
-  /* .board_container {
+  .board_container {
     flex-flow: column wrap;
-  } */
-
+  }
+/* 
   .Panel {
    
     width: 30px;
     height: 30px;
   
+  } */
+}
+
+@media (max-width: 440px) {
+  .Panel {
+    width: 21px;
+    height: 21px;
   }
 }

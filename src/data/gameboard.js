@@ -106,6 +106,12 @@ const gameboardFactory = () => {
     return sunkShips === ships.length;
   };
 
+  const resetBoard = () => {
+    boardCoordinates = [];
+    ships = [];
+  };
+
+
   return {
     ships,
     boardCoordinates,
@@ -114,7 +120,8 @@ const gameboardFactory = () => {
     placeShip,
     receiveAttack,
     reportShips,
-    updateToSunk
+    updateToSunk,
+    resetBoard
   };
 };
 

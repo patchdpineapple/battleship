@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Start from "./Start";
 import Game from "./Game";
+import Result from "./Result";
 import game_controller from "../game-controller"
 
 /***component below***/
@@ -60,7 +61,7 @@ function App() {
     setTimeout(()=>{
     toggleTurn();
       setPlayer({...tempPlayer});
-    },1500);
+    },0);
     
   };
 
@@ -73,8 +74,10 @@ function App() {
 
   return (
     <div className="App">
+      {showResult && <Result />}
       {showStart && <Start onToggleStart={toggleStart} />}
       {showGame && <Game player={player} CPU={CPU} turn={turn} toggleTurn={toggleTurn} handlePlayerAttack={handlePlayerAttack} handleCPUAttack={handleCPUAttack} toggleResult={toggleResult} />}
+    
     </div>
   );
 }
