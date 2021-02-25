@@ -17,7 +17,6 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [winner, setWinner] = useState("none");
 
-
   const toggleStart = () => {
     //closes the start screen and shows the game screen
     setShowStart(!showStart);
@@ -37,7 +36,6 @@ function App() {
     tempPlayer.playerAttack(targetX, targetY, tempCPU);
 
     // console.log(tempCPU.board.reportShips());
-    
 
     // console.log(targetX, targetY);
     // let atkIndex = tempCPU.board.boardCoordinates.findIndex(
@@ -68,20 +66,15 @@ function App() {
       if (tempPlayer.board.reportShips()) {
         console.log("GAME OVER: CPU Win!");
         setWinner("cpu");
-         
-         return toggleResult();
+
+        return toggleResult();
       }
     }, 0);
-
-    // toggleTurn();
-    //   setPlayer({ ...tempPlayer });
-
-    
   };
 
   const handleRestartGame = () => {
     //reset player boards
-    
+
     game_controller.resetGame();
 
     //toggle start screen and game screen
@@ -98,7 +91,9 @@ function App() {
 
   return (
     <div className="App">
-      {showResult && <Result winner={winner} handleRestartGame={handleRestartGame}/>}
+      {showResult && (
+        <Result winner={winner} handleRestartGame={handleRestartGame} />
+      )}
       {showStart && <Start onToggleStart={toggleStart} />}
       {showGame && (
         <Game

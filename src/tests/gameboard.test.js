@@ -115,3 +115,9 @@ test("reportShips() should return true when no more ships are alive", () => {
   P1board.receiveAttack(1, 5);
   expect(P1board.reportShips()).toBe(true);
 });
+
+test("resetBoard() should reset board array and ships", () => {
+  P1board.resetBoard();
+  expect(P1board.boardCoordinates.length).toBe(0);
+  expect(P1board.ships.length).toBe(0);
+});

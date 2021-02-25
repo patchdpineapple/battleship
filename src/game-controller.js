@@ -8,8 +8,6 @@ const game_controller = (function () {
 
   function start() {
     setShips();
-    if (turn === "cpu") {
-    }
   }
 
   function resetGame() {

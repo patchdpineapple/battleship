@@ -107,9 +107,20 @@ const gameboardFactory = () => {
   };
 
   const resetBoard = () => {
-    boardCoordinates = [];
-    setBoardCoordinates();
-    ships = [];
+    //clears the board coordinates array and ships
+
+    //reset board
+    let boardLength = boardCoordinates.length;
+    for(let i=0;i<boardLength;i++){
+      boardCoordinates.pop();
+    }
+
+    //reset ships
+    let shipsLength = ships.length;
+    for(let i=0;i<shipsLength;i++){
+      ships.pop();
+    }
+    
   };
 
 
