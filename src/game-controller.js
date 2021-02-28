@@ -13,21 +13,21 @@ const game_controller = (function () {
     Player.board.randomizeShip();
     CPU.board.randomizeShip();
 
-console.log("Player:", Player.board.ships);
+// console.log("Player:", Player.board.ships);
   
-console.log("Player:", Player.board.ships.length);
-console.log(Player.board.ships[0].type, Player.board.ships[0].coords);
-console.log(Player.board.ships[1].type, Player.board.ships[1].coords);
-console.log(Player.board.ships[2].type, Player.board.ships[2].coords);
-console.log(Player.board.ships[3].type, Player.board.ships[3].coords);
-console.log(Player.board.ships[4].type, Player.board.ships[4].coords);
+// console.log("Player:", Player.board.ships.length);
+// console.log(Player.board.ships[0].type, Player.board.ships[0].coords);
+// console.log(Player.board.ships[1].type, Player.board.ships[1].coords);
+// console.log(Player.board.ships[2].type, Player.board.ships[2].coords);
+// console.log(Player.board.ships[3].type, Player.board.ships[3].coords);
+// console.log(Player.board.ships[4].type, Player.board.ships[4].coords);
 
-console.log("CPU:",CPU.board.ships.length);
-console.log(CPU.board.ships[0].type, CPU.board.ships[0].coords);
-console.log(CPU.board.ships[1].type, CPU.board.ships[1].coords);
-console.log(CPU.board.ships[2].type, CPU.board.ships[2].coords);
-console.log(CPU.board.ships[3].type, CPU.board.ships[3].coords);
-console.log(CPU.board.ships[4].type, CPU.board.ships[4].coords);
+// console.log("CPU:",CPU.board.ships.length);
+// console.log(CPU.board.ships[0].type, CPU.board.ships[0].coords);
+// console.log(CPU.board.ships[1].type, CPU.board.ships[1].coords);
+// console.log(CPU.board.ships[2].type, CPU.board.ships[2].coords);
+// console.log(CPU.board.ships[3].type, CPU.board.ships[3].coords);
+// console.log(CPU.board.ships[4].type, CPU.board.ships[4].coords);
 
 
   }

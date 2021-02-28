@@ -24,16 +24,19 @@ const gameboardFactory = () => {
 
   const setBoardCoordinates = () => {
     //this method sets the gameboard coordinates and adds the ship coordinates to gameboard
-    for (let i = 1; i <= 10; i++) {
-      for (let j = 1; j <= 10; j++) {
-        boardCoordinates.push({
-          pos: { x: j, y: i },
-          ship: null,
-          isAttacked: false,
-          status: null,
-        });
+    if(boardCoordinates.length === 0){
+      for (let i = 1; i <= 10; i++) {
+        for (let j = 1; j <= 10; j++) {
+          boardCoordinates.push({
+            pos: { x: j, y: i },
+            ship: null,
+            isAttacked: false,
+            status: null,
+          });
+        }
       }
     }
+   
   };
 
   const placeShip = (type, length, coords) => {
@@ -215,6 +218,7 @@ const gameboardFactory = () => {
 
     //set board to default
     setBoardCoordinates();
+    console.log(boardCoordinates.length);
   };
 
   return {

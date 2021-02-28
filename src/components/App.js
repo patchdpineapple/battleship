@@ -76,7 +76,8 @@ function App() {
     //reset player boards
 
     game_controller.resetGame();
-
+    // setPlayer(game_controller.Player);
+    // setCPU(game_controller.CPU);
     //toggle start screen and game screen
 
     setShowStart(!showStart);
