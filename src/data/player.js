@@ -1,5 +1,5 @@
 const playerFactory = (board) => {
-  let attacksRecord = [];
+  let attacksRecord = []; //ex. [{x: 1, y: 1},{x: 1, y: 2}]
 
   const randomAttack = () => {
     //picks a coordinate to attack from a 10x10 board
@@ -16,16 +16,23 @@ const playerFactory = (board) => {
   };
 
   const playerAttack = (targetX, targetY, cpu) => {
-    cpu.board.receiveAttack(targetX, targetY);
-    return cpu;
+    let recordResult = cpu.board.receiveAttack(targetX, targetY);
+    return {
+      coords: {x: targetX, y: targetY},
+      result: recordResult
+    };
   };
 
   const aiAttack = (player) => {
     //attacks the opponent's board and records the attack coordinate
     let randomCoords = randomAttack();
-    player.board.receiveAttack(randomCoords.x, randomCoords.y);
+    let recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);
     attacksRecord.push(randomCoords);
-    return { ...randomCoords };
+    // return { ...randomCoords };
+    return {
+      coords: {...randomCoords},
+      result: recordResult
+    };
   };
 
   return {

@@ -118,6 +118,21 @@ test("reportShips() should return true when no more ships are alive", () => {
 
 test("resetBoard() should reset board array and ships", () => {
   P1board.resetBoard();
-  expect(P1board.boardCoordinates.length).toBe(0);
+  let nullChecker = 0;
+  P1board.boardCoordinates.map(coord => {if(!coord.ship) nullChecker++ });
+  expect(nullChecker).toBe(100);
   expect(P1board.ships.length).toBe(0);
+});
+
+test("randomizeShip() should place 5 ships randomly on the board", () => {
+  P1board.randomizeShip();
+  expect(P1board.ships.length).toBe(5); 
+  expect(P1board.ships[4].coords.length).toBe(2); 
+  expect(P1board.ships[3].coords.length).toBe(3); 
+  expect(P1board.ships[2].coords.length).toBe(3); 
+  expect(P1board.ships[1].coords.length).toBe(4); 
+  expect(P1board.ships[0].coords.length).toBe(5); 
+
+
+
 });

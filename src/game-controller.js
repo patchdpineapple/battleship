@@ -7,7 +7,29 @@ const game_controller = (function () {
   let CPU = playerFactory(gameboardFactory());
 
   function start() {
-    setShips();
+    // setShips();
+    Player.board.setBoardCoordinates();
+    CPU.board.setBoardCoordinates();
+    Player.board.randomizeShip();
+    CPU.board.randomizeShip();
+
+console.log("Player:", Player.board.ships);
+  
+console.log("Player:", Player.board.ships.length);
+console.log(Player.board.ships[0].type, Player.board.ships[0].coords);
+console.log(Player.board.ships[1].type, Player.board.ships[1].coords);
+console.log(Player.board.ships[2].type, Player.board.ships[2].coords);
+console.log(Player.board.ships[3].type, Player.board.ships[3].coords);
+console.log(Player.board.ships[4].type, Player.board.ships[4].coords);
+
+console.log("CPU:",CPU.board.ships.length);
+console.log(CPU.board.ships[0].type, CPU.board.ships[0].coords);
+console.log(CPU.board.ships[1].type, CPU.board.ships[1].coords);
+console.log(CPU.board.ships[2].type, CPU.board.ships[2].coords);
+console.log(CPU.board.ships[3].type, CPU.board.ships[3].coords);
+console.log(CPU.board.ships[4].type, CPU.board.ships[4].coords);
+
+
   }
 
   function resetGame() {
@@ -36,7 +58,7 @@ const game_controller = (function () {
       { pos: { x: 8, y: 10 }, isHit: false },
     ]);
 
-    Player.board.placeShip("BattleShip", 4, [
+    Player.board.placeShip("Battleship", 4, [
       { pos: { x: 4, y: 5 }, isHit: false },
       { pos: { x: 5, y: 5 }, isHit: false },
       { pos: { x: 6, y: 5 }, isHit: false },
@@ -70,7 +92,7 @@ const game_controller = (function () {
       { pos: { x: 8, y: 10 }, isHit: false },
     ]);
 
-    CPU.board.placeShip("BattleShip", 4, [
+    CPU.board.placeShip("Battleship", 4, [
       { pos: { x: 4, y: 5 }, isHit: false },
       { pos: { x: 5, y: 5 }, isHit: false },
       { pos: { x: 6, y: 5 }, isHit: false },

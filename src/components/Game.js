@@ -17,20 +17,20 @@ function Panel({
   if (ship) {
     return (
       <>
-        {status === "sunk" ? <button className="Panel sunk">x</button> : null}
+        {status === "sunk" ? <button className="Panel sunk" >x</button> : null}
         {status === "hit" ? (
-          <button className={`Panel hit ${type === "player" ? "ship" : null}`}>
+          <button className={`Panel hit ${type === "player" ? "ship" : "ship"}`}>
             x
           </button>
         ) : null}
         {status === null ? (
           <button
-            className={`Panel ${type === "player" ? "ship" : null}`}
+            className={`Panel ${type === "player" ? "ship" : "ship"}`}
             onClick={() => {
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(ship, coords.x, coords.y, index);
+                return console.log(`${ship}[${coords.x},${coords.y}] index[${index}]`);
               }
             }}
           />
@@ -48,7 +48,7 @@ function Panel({
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(ship, coords.x, coords.y, index);
+                return console.log(`${ship}[${coords.x},${coords.y}] index[${index}]`);
               }
             }}
           />
