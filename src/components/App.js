@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Start from "./Start";
+import ShipPlacement from "./ShipPlacement";
 import Game from "./Game";
 import Result from "./Result";
 import game_controller from "../game-controller";
@@ -13,20 +14,30 @@ function App() {
   const [CPU, setCPU] = useState(game_controller.CPU);
 
   const [showStart, setShowStart] = useState(true);
+  const [showShipPlacement, setShowShipPlacement] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [winner, setWinner] = useState("none");
 
   const toggleStart = () => {
     //closes the start screen and shows the game screen
+    setShowShipPlacement(!showShipPlacement);
     setShowStart(!showStart);
-    setShowGame(!showGame);
     game_controller.start();
+
   };
 
+  
   const toggleResult = () => {
     //closes the start screen and shows the game screen
     setShowResult(!showResult);
+  };
+
+  const onDoneShipPlacement = () => {
+    //closes ship placement screen and shows game screen
+    setShowShipPlacement(!showShipPlacement);
+    setShowGame(!showGame);
+    game_controller.randomizeShips();
   };
 
   const handlePlayerAttack = (targetX, targetY) => {
@@ -95,7 +106,9 @@ function App() {
       {showResult && (
         <Result winner={winner} handleRestartGame={handleRestartGame} />
       )}
+      {showShipPlacement && <ShipPlacement player={player} onDoneShipPlacement={onDoneShipPlacement} />}
       {showStart && <Start onToggleStart={toggleStart} />}
+
       {showGame && (
         <Game
           player={player}

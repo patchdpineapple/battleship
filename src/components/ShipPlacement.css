@@ -1,0 +1,77 @@
+.ShipPlacement {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.ShipPlacement_container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+.ShipSelection {
+    
+    margin: 10px;
+}
+
+.selections {
+    display: inline-block !important;
+}
+
+.DropBoard {
+    display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto;
+  justify-items: center;
+  grid-gap: 5px;
+  align-items: center;
+  padding: 15px;
+  background-color: #1b1b1e;
+  box-shadow: 0px 0px 5px rgb(0, 0, 0);
+}
+
+.DropPanel {
+    display: inline-block;
+  border: none;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(13, 198, 255);
+  text-decoration: none;
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ShipSelection {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    
+}
+
+.DragShip {
+    display:flex;
+    flex-flow: row;
+    margin: 10px 5px;
+    color: white;
+}
+
+.vertical {
+    flex-flow: column;
+}
+
+.selectShip {
+    background-color:#3aff13;
+    width: 40px;
+    height: 40px;
+    border: 2.5px solid #1b1b1e;
+    
+}   
+
+.ShipPlacement > p {
+    margin-top: 5vh;
+}

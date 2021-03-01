@@ -24,7 +24,7 @@ const gameboardFactory = () => {
 
   const setBoardCoordinates = () => {
     //this method sets the gameboard coordinates and adds the ship coordinates to gameboard
-    if(boardCoordinates.length === 0){
+    if (boardCoordinates.length === 0) {
       for (let i = 1; i <= 10; i++) {
         for (let j = 1; j <= 10; j++) {
           boardCoordinates.push({
@@ -36,7 +36,6 @@ const gameboardFactory = () => {
         }
       }
     }
-   
   };
 
   const placeShip = (type, length, coords) => {
@@ -59,7 +58,6 @@ const gameboardFactory = () => {
     //places all ships randomly on the board
     const generateRandomShips = () => {
       let randCoords;
-      
 
       randCoords = randomizeCoords(5);
       placeShip("Carrier", 5, randCoords);
@@ -85,7 +83,7 @@ const gameboardFactory = () => {
       let coords = [];
       let increment = 0; //1 if horizontal, 10 if vertical
       let shipsOccupied = 0; //should be 0 if there is no ship on selected coordinates
-      let adjacentOccupied = 0; //should be 0 if there is no ship on adjacent sides of coords
+      let adjacentOccupied = false; //should be 0 if there is no ship on adjacent sides of coords
 
       const randomizeAxis = () => {
         return Math.floor(Math.random() * 2) === 0 ? "horizontal" : "vertical";
@@ -114,11 +112,73 @@ const gameboardFactory = () => {
           ];
       }
 
+      //complete ship indexes
       for (let i = 0; i < length; i++) {
         randIndexArray.push(baseRandIndex);
         if (isOccupied(baseRandIndex)) shipsOccupied++;
         baseRandIndex += increment;
       }
+
+      //check adjacent if occupied by ships
+      const checkAdjacent = () => {
+        if (axis === "horizontal") {
+          for (let i = 0; i < randIndexArray.length; i++) {
+            if (i === 0) {
+              //check up, down, left, upper left,lower left indexes for ships
+              if (
+                isOccupied(randIndexArray[i] - 10) ||
+                isOccupied(randIndexArray[i] + 10) ||
+                isOccupied(randIndexArray[i] - 1) ||
+                isOccupied(randIndexArray[i] - 11) ||
+                isOccupied(randIndexArray[i] + 9)
+              )
+                adjacentOccupied = true;
+            } else if (i === randIndexArray.length - 1) {
+              //check up, down, right, upper right,lower right indexes for ships
+              if (
+                isOccupied(randIndexArray[i] - 10) ||
+                isOccupied(randIndexArray[i] + 10) ||
+                isOccupied(randIndexArray[i] + 1) ||
+                isOccupied(randIndexArray[i] - 9) ||
+                isOccupied(randIndexArray[i] + 11)
+              )
+                adjacentOccupied = true;
+            } else {
+              isOccupied(randIndexArray[i] - 10);
+              isOccupied(randIndexArray[i] + 10);
+            }
+          }
+        } else if (axis === "vertical") {
+          for (let i = 0; i < randIndexArray; i++) {
+            if (i === 0) {
+              //check left, right, up, upper left, upper right indexes for ships
+              if (
+                isOccupied(randIndexArray[i] - 1) ||
+                isOccupied(randIndexArray[i] + 1) ||
+                isOccupied(randIndexArray[i] - 10) ||
+                isOccupied(randIndexArray[i] - 11) ||
+                isOccupied(randIndexArray[i] - 9)
+              )
+                adjacentOccupied = true;
+            } else if (i === randIndexArray.length - 1) {
+              //check left, right, down, lower left, lower right indexes for ships
+              if (
+                isOccupied(randIndexArray[i] - 1) ||
+                isOccupied(randIndexArray[i] + 1) ||
+                isOccupied(randIndexArray[i] + 10) ||
+                isOccupied(randIndexArray[i] + 9) ||
+                isOccupied(randIndexArray[i] + 11)
+              )
+                adjacentOccupied = true;
+            } else {
+              isOccupied(randIndexArray[i] - 1);
+              isOccupied(randIndexArray[i] + 1);
+            }
+          }
+        }
+      };
+
+      checkAdjacent();
 
       //get coordinates from the chosen indexes
       for (let i = 0; i < randIndexArray.length; i++) {
@@ -133,14 +193,18 @@ const gameboardFactory = () => {
         return Math.floor(Math.random() * (max - min)) + min;
       }
 
-      
-
-
-      return shipsOccupied === 0 ? coords : randomizeCoords(length);
+      return shipsOccupied === 0 && adjacentOccupied === false
+        ? coords
+        : randomizeCoords(length);
     };
 
     //check if occupied
     const isOccupied = (index) => {
+      if (typeof boardCoordinates[index] === "undefined") {
+        console.log(boardCoordinates[index]);
+        return false;
+      }
+
       return boardCoordinates[index].ship ? true : false;
     };
 

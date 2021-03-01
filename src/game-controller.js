@@ -10,8 +10,7 @@ const game_controller = (function () {
     // setShips();
     Player.board.setBoardCoordinates();
     CPU.board.setBoardCoordinates();
-    Player.board.randomizeShip();
-    CPU.board.randomizeShip();
+   
 
 // console.log("Player:", Player.board.ships);
   
@@ -36,6 +35,11 @@ const game_controller = (function () {
     Player.board.resetBoard();
     CPU.board.resetBoard();
     turn="player";
+  }
+
+  function randomizeShips () {
+    // Player.board.randomizeShip();
+    CPU.board.randomizeShip();
   }
 
   function setShips() {
@@ -114,6 +118,7 @@ const game_controller = (function () {
     turn,
     start,
     resetGame,
+    randomizeShips,
   };
 })();
 
