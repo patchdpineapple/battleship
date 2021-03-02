@@ -33,6 +33,15 @@ function App() {
     setShowResult(!showResult);
   };
 
+  const handlePlaceShip = (type, length, coords) => {
+    //adds a ship on the player's board after drag and dropping from the ship selection scren
+    let tempPlayer = player;
+    tempPlayer.board.placeShip(type, length, coords);
+    setPlayer({...tempPlayer});
+  }
+
+  
+
   const onDoneShipPlacement = () => {
     //closes ship placement screen and shows game screen
     setShowShipPlacement(!showShipPlacement);
@@ -106,7 +115,7 @@ function App() {
       {showResult && (
         <Result winner={winner} handleRestartGame={handleRestartGame} />
       )}
-      {showShipPlacement && <ShipPlacement player={player} onDoneShipPlacement={onDoneShipPlacement} />}
+      {showShipPlacement && <ShipPlacement player={player} handlePlaceShip={handlePlaceShip} onDoneShipPlacement={onDoneShipPlacement} />}
       {showStart && <Start onToggleStart={toggleStart} />}
 
       {showGame && (
