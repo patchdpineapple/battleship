@@ -66,21 +66,27 @@ function ShipSelection(props) {
   );
 }
 
-function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
+function DropPanel({ index, player, type, coords, handlePlaceShip }) {
   const [isDropped, setIsDropped] = useState(false);
 
   const dragOver = (e) => {
+    //show hover over color
     e.preventDefault();
     e.target.classList.add("draggingOver");
-    // console.log(`dragging over coord ${coords.x},${coords.y}`);
+    // console.log(`dragging over coord ${shipCoords.x},${shipCoords.y}`);
   };
 
   const dragLeave = (e) => {
+    //remove hovered over color
     e.preventDefault();
     e.target.classList.remove("draggingOver");
   };
 
   const drop = (e) => {
+    //remove hovered over color
+    e.target.classList.remove("draggingOver");
+
+    //returns a new 
     let ship_type = e.dataTransfer.getData("ship_type");
     let ship_length = e.dataTransfer.getData("ship_length");
     let ship_axis = e.dataTransfer.getData("ship_axis");
@@ -90,86 +96,111 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
     console.log(
       `dropped data: ${ship_type}, length: ${ship_length}, axis: ${ship_axis}, baseCoord: ${
         "x:" + coords.x
-      },${"y:" + coords.y}, index: ${ship_baseIndex}`
+      },${"y:" + coords.y}, shipIndex: ${ship_baseIndex}`
     );
-    e.target.classList.remove("draggingOver");
 
     let shipCoords = getCoords(ship_baseIndex, ship_length, ship_axis);
+
+    //for testing only
     if (shipCoords) {
-      // console.clear();
-      // console.log(shipCoords);
-      // for (let i = 0; i < ship_length; i++) {
-      //   console.log(
-      //     `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
-      //   );
-      // }
+      console.clear();
+      console.log(shipCoords);
+      for (let i = 0; i < ship_length; i++) {
+        console.log(
+          `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
+        );
+      }
+    handlePlaceShip(ship_type,ship_length,shipCoords);
+
     } else console.log(shipCoords);
+
   };
 
   const getCoords = (index, length, axis) => {
-    let baseIndex = index;
+    //returns a valid ship coordinates array or null if invalid dropped index
+    let shipIndex = index;
     let increment = 0;
-    let baseIndexArray = [];
-    let coords = [];
+    let shipIndexesArray = [];
+    let shipCoords = [];
     let invalid = 0;
-    let invalidLowestIndexes;
-    let invalidIndexesArray;
+    let occupied = 0; 
+    let invalidBaseIndexes = []; //array of all invalid base indexes(0,1,2,...,9)/(0,10,20,...,90) depending on length and axis
+    let invalidIndexesArray = []; //array of all invalid indexes 
 
-    //used to check if a coordinate is already occupied
+    //used to check if dropped shipIndex is invalid
     const isInvalid = (baseIndex, invalidIndexes) => {
+        return invalidIndexes.findIndex((invalidIndex) => invalidIndex === baseIndex) > -1 ? true : false;
+    };
+
+    //used to check if the current shipIndex is already occupied or undefined
+    const isOccupied = (baseIndex) => {
       if (typeof player.board.boardCoordinates[baseIndex] === "undefined") {
         return true;
       }
 
-      if(invalidIndexes.findIndex( index => index === baseIndex ) > -1)
       return player.board.boardCoordinates[baseIndex].ship ? true : false;
     };
 
-    //set increment based on axis
+    //set increment and invalid indexes for checking if dropped index is valid
     if (axis === "horizontal") {
-      let tempIndex;
       increment = 1;
-      invalidLowestIndexes = new Array(length - 1);
 
-      for (let i = length - 1; i > 0; i++) {
-        invalidLowestIndexes.push(10 - i);
+      //fill array with invalid lowest indexes depending on length
+      for (let i = 11-length; i < 10; i++) {
+        invalidBaseIndexes.push(i);
       }
 
-      //assign all invalid indexes
-      for (let i = 0; i < invalidLowestIndexes.length; i++) {
-        tempIndex = invalidLowestIndexes[i];
+      //assign all invalid indexes based on all invalid lowest indexes
+      let tempBaseIndexes;
+      for (let i = 0; i < invalidBaseIndexes.length; i++) {
+        tempBaseIndexes = invalidBaseIndexes[i];
         for (let j = 0; j < 10; j++) {
-          invalidIndexesArray.push(tempIndex);
-          tempIndex += 10;
+          invalidIndexesArray.push(tempBaseIndexes);
+          tempBaseIndexes += 10;
         }
       }
     } else if (axis === "vertical") {
-      let tempIndex;
       increment = 10;
-    }
-    
-    //complete ship indexes
-    for (let i = 0; i < length; i++) {
-      baseIndexArray.push(baseIndex);
-      if (isInvalid(baseIndex, invalidIndexesArray)) return null;
-      baseIndex += increment;
+      
+      for (let i = 110-length*10; i < 100; i+=10) {
+        invalidBaseIndexes.push(i);
+      }
+
+      let tempBaseIndexes;
+      for (let i = 0; i < invalidBaseIndexes.length; i++) {
+        tempBaseIndexes = invalidBaseIndexes[i];
+        for (let j = 0; j < 10; j++) {
+          invalidIndexesArray.push(tempBaseIndexes);
+          tempBaseIndexes += 10;
+        }
+      }
     }
 
-    //get coordinates from the chosen indexes
-    for (let i = 0; i < baseIndexArray.length; i++) {
-      coords.push({
-        pos: player.board.boardCoordinates[baseIndexArray[i]].pos,
+    //check if dropped index is an invalid(not fit for length of ship) spot to drop
+    if (isInvalid(shipIndex, invalidIndexesArray)) invalid++;
+
+    //complete ship indexes
+    for (let i = 0; i < length; i++) {
+      shipIndexesArray.push(shipIndex);
+      if (isOccupied(shipIndex)) occupied++;
+      shipIndex += increment;
+    }
+
+    //convert and store ship indexes as ship coordinates
+    for (let i = 0; i < shipIndexesArray.length; i++) {
+      shipCoords.push({
+        pos: player.board.boardCoordinates[shipIndexesArray[i]].pos,
         isHit: false,
       });
     }
 
-    return coords;
+    return invalid === 0 && occupied === 0 ? shipCoords : null;
   };
 
   return (
     <button
       className={`DropPanel ${isDropped ? "dropped" : null}`}
-      onClick={() => console.log(`index[${index}]`)}
+      onClick={() => console.log(`shipIndex[${index}]`)}
       onDrop={drop}
       onDragOver={dragOver}
       onDragLeave={dragLeave}
@@ -185,7 +216,7 @@ function DropBoard({ player, handlePlaceShip }) {
           key={i}
           index={i}
           player={player}
-          ship={coord.ship}
+          type={coord.ship}
           coords={coord.pos}
           handlePlaceShip={handlePlaceShip}
         />

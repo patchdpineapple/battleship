@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import "./App.css";
 import Start from "./Start";
 import ShipPlacement from "./ShipPlacement";
@@ -38,6 +38,8 @@ function App() {
     let tempPlayer = player;
     tempPlayer.board.placeShip(type, length, coords);
     setPlayer({...tempPlayer});
+    console.log('ship placed on player board');
+    
   }
 
   

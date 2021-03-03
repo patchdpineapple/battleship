@@ -35,7 +35,7 @@ const shipFactory = (type, length, coords) => {
   type: 'Patrol', 
   length: 2, 
   coords:  
-   [ { pos: { x: 1, y: 1 },, isHit: false }, 
+   [ { pos: { x: 1, y: 1 }, isHit: false }, 
      { pos: { x: 1, y: 2 }, isHit: false } ], 
   hit: [λ: hit], 
   isSunk: [λ: isSunk] } 

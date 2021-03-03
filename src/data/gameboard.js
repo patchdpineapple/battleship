@@ -5,7 +5,7 @@ const gameboardFactory = () => {
     {pos: { x: 1, y: 1 }, ship: null, isAttacked: false, status: "hit"},
     {pos: { x: 1, y: 2 }, ship: 'Patrol', isAttacked: false, status: "hit"}
     {pos: { x: 1, y: 3 }, ship: 'Patrol', isAttacked: true, status: "hit"}
-    {pos: { x: 1, y: 3 }, ship: null, isAttacked: true, status: "miss"}
+    {pos: { x: 1, y: 4 }, ship: null, isAttacked: true, status: "miss"}
   ]
   */
   let boardCoordinates = [];
