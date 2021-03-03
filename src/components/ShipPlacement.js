@@ -26,7 +26,7 @@ function DragShip({ id, type, length }) {
 
   const dragEnd = (e) => {
     e.stopPropagation();
-    // setIsDropped(true);
+    setIsDropped(true);
   };
 
   return (
@@ -66,8 +66,7 @@ function ShipSelection(props) {
   );
 }
 
-function DropPanel({ index, player, type, coords, handlePlaceShip }) {
-  const [isDropped, setIsDropped] = useState(false);
+function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
 
   const dragOver = (e) => {
     //show hover over color
@@ -199,7 +198,7 @@ function DropPanel({ index, player, type, coords, handlePlaceShip }) {
 
   return (
     <button
-      className={`DropPanel ${isDropped ? "dropped" : null}`}
+      className={`DropPanel ${ship ? "dropped":null}`}
       onClick={() => console.log(`shipIndex[${index}]`)}
       onDrop={drop}
       onDragOver={dragOver}
@@ -216,7 +215,7 @@ function DropBoard({ player, handlePlaceShip }) {
           key={i}
           index={i}
           player={player}
-          type={coord.ship}
+          ship={coord.ship}
           coords={coord.pos}
           handlePlaceShip={handlePlaceShip}
         />
