@@ -3,9 +3,8 @@ import "./ShipPlacement.css";
 
 let drop_status = "valid";
 
-function DragShip({ id, type, length }) {
+function DragShip(props) {
   const [isHorizontal, setIsHorizontal] = useState(true);
-  const [isDropped, setIsDropped] = useState(false);
 
   const toggleAxis = () => {
     setIsHorizontal(!isHorizontal);
@@ -15,8 +14,8 @@ function DragShip({ id, type, length }) {
     e.target.style.opacity = "0.4";
 
     // console.log(target.id, type);
-    e.dataTransfer.setData("ship_type", type);
-    e.dataTransfer.setData("ship_length", length.length);
+    e.dataTransfer.setData("ship_type", props.type);
+    e.dataTransfer.setData("ship_length", props.length.length);
     e.dataTransfer.setData(
       "ship_axis",
       isHorizontal ? "horizontal" : "vertical"
@@ -33,7 +32,7 @@ function DragShip({ id, type, length }) {
     console.log(`drag end drop class: ${e.target.className}`);
     console.log(`drag end drop effect value : ${e.dataTransfer.dropEffect}`);
     if(drop_status !== "invalid"){
-      if(e.dataTransfer.dropEffect === "move") setIsDropped(true);
+      if(e.dataTransfer.dropEffect === "move") props.unshow();
     }
     
 
@@ -44,24 +43,24 @@ function DragShip({ id, type, length }) {
 
   return (
     <>
-      {isDropped ? (
-        <div />
-      ) : (
+      {props.show ? (
         <div
-          id={id}
-          type={type}
-          length={length.length}
-          className={`DragShip ${isHorizontal ? "horizontal" : "vertical"}`}
-          onClick={toggleAxis}
-          draggable={true}
-          onDragStart={dragStart}
-          onDragEnd={dragEnd}
-          
-        >
-          {length.map((x, i) => (
-            <div key={i} className="selectShip"></div>
-          ))}
-        </div>
+        id={props.id}
+        type={props.type}
+        length={props.length.length}
+        className={`DragShip ${isHorizontal ? "horizontal" : "vertical"}`}
+        onClick={toggleAxis}
+        draggable={true}
+        onDragStart={dragStart}
+        onDragEnd={dragEnd}
+        
+      >
+        {props.length.map((x, i) => (
+          <div key={i} className="selectShip"></div>
+        ))}
+      </div>
+      ) : (
+        <div/>
       )}
     </>
   );
@@ -70,11 +69,11 @@ function DragShip({ id, type, length }) {
 function ShipSelection(props) {
   return (
     <div className="ShipSelection">
-      <DragShip id={1} type="Patrol" length={[1, 2]} />
-      <DragShip id={2} type="Submarine" length={[1, 2, 3]} />
-      <DragShip id={3} type="Destroyer" length={[1, 2, 3]} />
-      <DragShip id={4} type="Battleship" length={[1, 2, 3, 4]} />
-      <DragShip id={5} type="Carrier" length={[1, 2, 3, 4, 5]} />
+      <DragShip id={1} type="Patrol" length={[1, 2]} show={props.showPatrol} unshow={props.handleUnshowPatrol} />
+      <DragShip id={2} type="Submarine" length={[1, 2, 3]} show={props.showSubmarine} unshow={props.handleUnshowSubmarine} />
+      <DragShip id={3} type="Destroyer" length={[1, 2, 3]} show={props.showDestroyer} unshow={props.handleUnshowDestroyer} />
+      <DragShip id={4} type="Battleship" length={[1, 2, 3, 4]} show={props.showBattleship} unshow={props.handleUnshowBattleship} />
+      <DragShip id={5} type="Carrier" length={[1, 2, 3, 4, 5]} show={props.showCarrier} unshow={props.handleUnshowCarrier} />
     </div>
   );
 }
@@ -245,17 +244,65 @@ function DropBoard({ player, handlePlaceShip }) {
 }
 
 function ShipPlacement({ player, handlePlaceShip, onResetShipPlacement, onDoneShipPlacement }) {
+  
+  const [showPatrol, setShowPatrol] = useState(true);
+  const [showSubmarine, setShowSubmarine] = useState(true);
+  const [showDestroyer, setShowDestroyer] = useState(true);
+  const [showBattleship, setShowBattleship] = useState(true);
+  const [showCarrier, setShowCarrier] = useState(true);
+
+  const handleUnshowPatrol = () => {
+    setShowPatrol(false);
+  }
+
+  const handleUnshowSubmarine = () => {
+    setShowSubmarine(false);
+  }
+
+  const handleUnshowDestroyer = () => {
+    setShowDestroyer(false);
+  }
+
+  const handleUnshowBattleship = () => {
+    setShowBattleship(false);
+  }
+
+  const handleUnshowCarrier = () => {
+    setShowCarrier(false);
+  }
+
+
+  const handleResetShips = () => {
+    setShowPatrol(true);
+    setShowSubmarine(true);
+    setShowDestroyer(true);
+    setShowBattleship(true);
+    setShowCarrier(true);
+    onResetShipPlacement();
+  }
+
   return (
     <div className="ShipPlacement">
       <div className="ShipPlacement_container">
         <DropBoard player={player} handlePlaceShip={handlePlaceShip} />
-        <ShipSelection />
+        <ShipSelection 
+        showPatrol={showPatrol} 
+        handleUnshowPatrol={handleUnshowPatrol} 
+        showSubmarine={showSubmarine}  
+        handleUnshowSubmarine={handleUnshowSubmarine} 
+        showDestroyer={showDestroyer} 
+        handleUnshowDestroyer={handleUnshowDestroyer} 
+        showBattleship={showBattleship} 
+        handleUnshowBattleship={handleUnshowBattleship} 
+        showCarrier={showCarrier} 
+        handleUnshowCarrier={handleUnshowCarrier} 
+        />
       </div>
-      <p>Drag and Drop to place a ship on the board</p>
+      <p>Drag and Drop to place a ship on the board. Click to change ship axis.</p>
       <div>
-        <button className="btn reset" onClick={onResetShipPlacement}>Reset</button>
+        <button className="btn reset" onClick={handleResetShips}>Reset</button>
         <button
-          className="btn done"
+          className={`btn done ${player.board.ships.length !== 5 ? "btn_disabled" : ""}`}
           onClick={onDoneShipPlacement}
           disabled={player.board.ships.length === 5 ? false : true}
         >

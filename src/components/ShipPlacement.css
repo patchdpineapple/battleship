@@ -87,6 +87,15 @@
     margin-top: 5vh;
 }
 
+.btn_disabled {
+    background-color: rgb(73, 73, 73);
+    color: rgb(192, 192, 192);
+}
+
+.btn_disabled:active {
+    transform: scale(1);
+  }
+
 @media (max-width: 440px) {
     .DropPanel {
       width: 21px;
