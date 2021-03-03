@@ -86,3 +86,16 @@
 .ShipPlacement > p {
     margin-top: 5vh;
 }
+
+@media (max-width: 440px) {
+    .DropPanel {
+      width: 21px;
+      height: 21px;
+    }
+
+    .selectShip {
+        width: 26px;
+        height: 26px;
+        
+    }   
+  }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./ShipPlacement.css";
 
+let drop_status = "valid";
+
 function DragShip({ id, type, length }) {
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [isDropped, setIsDropped] = useState(false);
@@ -10,7 +12,8 @@ function DragShip({ id, type, length }) {
   };
 
   const dragStart = (e) => {
-    const target = e.target;
+    e.target.style.opacity = "0.4";
+
     // console.log(target.id, type);
     e.dataTransfer.setData("ship_type", type);
     e.dataTransfer.setData("ship_length", length.length);
@@ -18,19 +21,23 @@ function DragShip({ id, type, length }) {
       "ship_axis",
       isHorizontal ? "horizontal" : "vertical"
     );
+    e.dataTransfer.effectAllowed = "move";
   };
 
-  const dragOver = (e) => {
-    // e.stopPropagation();
-    console.log("drag over");
-
-  };
+  
 
   const dragEnd = (e) => {
     e.stopPropagation();
-    console.log("drag end");
+    e.target.style.opacity = "1";
 
-    // setIsDropped(true);
+    console.log(`drag end drop class: ${e.target.className}`);
+    console.log(`drag end drop effect value : ${e.dataTransfer.dropEffect}`);
+    if(drop_status !== "invalid"){
+      if(e.dataTransfer.dropEffect === "move") setIsDropped(true);
+    }
+    
+
+    
   };
 
   
@@ -48,7 +55,6 @@ function DragShip({ id, type, length }) {
           onClick={toggleAxis}
           draggable={true}
           onDragStart={dragStart}
-          onDragOver={dragOver}
           onDragEnd={dragEnd}
           
         >
@@ -79,7 +85,6 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
     //show hover over color
     e.preventDefault();
     e.target.classList.add("draggingOver");
-    // console.log(`dragging over coord ${shipCoords.x},${shipCoords.y}`);
   };
 
   const dragLeave = (e) => {
@@ -89,6 +94,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
   };
 
   const drop = (e) => {
+    e.preventDefault();
     //remove hovered over color
     e.target.classList.remove("draggingOver");
 
@@ -116,10 +122,15 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       //     `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
       //   );
       // }
+      drop_status = "valid";
     handlePlaceShip(ship_type,ship_length,shipCoords);
+    console.log(`onDrop class: ${e.target.classList}`);
 
-    } else console.log(shipCoords);
-
+    } else {
+      console.log(shipCoords);
+      drop_status = "invalid";
+    }
+      
   };
 
   const getCoords = (index, length, axis) => {
@@ -207,7 +218,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
 
   return (
     <button
-      className={`DropPanel ${ship ? "dropped":null}`}
+      className={`DropPanel ${ship ? "dropped":"not_dropped" }`}
       onClick={() => console.log(`shipIndex[${index}]`)}
       onDrop={drop}
       onDragOver={dragOver}
@@ -233,7 +244,7 @@ function DropBoard({ player, handlePlaceShip }) {
   );
 }
 
-function ShipPlacement({ player, handlePlaceShip, onDoneShipPlacement }) {
+function ShipPlacement({ player, handlePlaceShip, onResetShipPlacement, onDoneShipPlacement }) {
   return (
     <div className="ShipPlacement">
       <div className="ShipPlacement_container">
@@ -242,7 +253,7 @@ function ShipPlacement({ player, handlePlaceShip, onDoneShipPlacement }) {
       </div>
       <p>Drag and Drop to place a ship on the board</p>
       <div>
-        <button className="btn reset">Reset</button>
+        <button className="btn reset" onClick={onResetShipPlacement}>Reset</button>
         <button
           className="btn done"
           onClick={onDoneShipPlacement}

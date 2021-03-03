@@ -42,7 +42,13 @@ function App() {
     
   }
 
-  
+  const onResetShipPlacement = () => {
+    //reset ships
+    let tempPlayer = player;
+    tempPlayer.board.resetBoard()
+    setPlayer({...tempPlayer});
+
+  };
 
   const onDoneShipPlacement = () => {
     //closes ship placement screen and shows game screen
@@ -117,7 +123,7 @@ function App() {
       {showResult && (
         <Result winner={winner} handleRestartGame={handleRestartGame} />
       )}
-      {showShipPlacement && <ShipPlacement player={player} handlePlaceShip={handlePlaceShip} onDoneShipPlacement={onDoneShipPlacement} />}
+      {showShipPlacement && <ShipPlacement player={player} handlePlaceShip={handlePlaceShip} onResetShipPlacement={onResetShipPlacement} onDoneShipPlacement={onDoneShipPlacement} />}
       {showStart && <Start onToggleStart={toggleStart} />}
 
       {showGame && (
