@@ -21,13 +21,19 @@ function DragShip({ id, type, length }) {
   };
 
   const dragOver = (e) => {
-    e.stopPropagation();
+    // e.stopPropagation();
+    console.log("drag over");
+
   };
 
   const dragEnd = (e) => {
     e.stopPropagation();
-    setIsDropped(true);
+    console.log("drag end");
+
+    // setIsDropped(true);
   };
+
+  
 
   return (
     <>
@@ -44,6 +50,7 @@ function DragShip({ id, type, length }) {
           onDragStart={dragStart}
           onDragOver={dragOver}
           onDragEnd={dragEnd}
+          
         >
           {length.map((x, i) => (
             <div key={i} className="selectShip"></div>
@@ -102,13 +109,13 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
 
     //for testing only
     if (shipCoords) {
-      console.clear();
-      console.log(shipCoords);
-      for (let i = 0; i < ship_length; i++) {
-        console.log(
-          `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
-        );
-      }
+      // console.clear();
+      // console.log(shipCoords);
+      // for (let i = 0; i < ship_length; i++) {
+      //   console.log(
+      //     `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
+      //   );
+      // }
     handlePlaceShip(ship_type,ship_length,shipCoords);
 
     } else console.log(shipCoords);
@@ -170,7 +177,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
         tempBaseIndexes = invalidBaseIndexes[i];
         for (let j = 0; j < 10; j++) {
           invalidIndexesArray.push(tempBaseIndexes);
-          tempBaseIndexes += 10;
+          tempBaseIndexes += 1;
         }
       }
     }
@@ -185,6 +192,8 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       shipIndex += increment;
     }
 
+    if(invalid > 0 || occupied > 0) return null;
+
     //convert and store ship indexes as ship coordinates
     for (let i = 0; i < shipIndexesArray.length; i++) {
       shipCoords.push({
@@ -193,7 +202,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       });
     }
 
-    return invalid === 0 && occupied === 0 ? shipCoords : null;
+    return shipCoords;
   };
 
   return (
