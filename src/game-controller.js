@@ -34,6 +34,7 @@ const game_controller = (function () {
   function resetGame() {
     Player.board.resetBoard();
     CPU.board.resetBoard();
+    CPU.resetAttacksRecord();
     turn="player";
   }
 

@@ -35,11 +35,19 @@ const playerFactory = (board) => {
     };
   };
 
+  const resetAttacksRecord = () => {
+    let attacksRecordLength = attacksRecord.length;
+    for(let i=0;i<attacksRecordLength;i++){
+      attacksRecord.pop();
+    }
+  }
+
   return {
     board,
     randomAttack,
     playerAttack,
     aiAttack,
+    resetAttacksRecord,
   };
 };
 export default playerFactory;
