@@ -96,14 +96,14 @@ test("receiveAttack() should update gameboard coordinate isAttacked status to tr
 
 test("updateToSunk() should change coords status to sunk if a ship with same coords is sunk", () => {
   P1board.receiveAttack(2, 1);
-  P1board.updateToSunk();
+  // P1board.updateToSunk();
   expect(P1board.boardCoordinates[0].status).toBe("sunk");
   expect(P1board.boardCoordinates[1].status).toBe("sunk");
 
   P1board.receiveAttack(1, 6);
   P1board.receiveAttack(1, 7);
   P1board.receiveAttack(1, 8);
-  P1board.updateToSunk();
+  // P1board.updateToSunk(); 
   expect(P1board.boardCoordinates[50].status).toBe("sunk");
   expect(P1board.boardCoordinates[60].status).toBe("sunk");
   expect(P1board.boardCoordinates[70].status).toBe("sunk");

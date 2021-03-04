@@ -78,7 +78,7 @@ function Game({
   );
 
   return (
-    <div className="Game">
+    <div className="Game"> {console.log("player", player.board.ships)}{console.log("cpu", CPU.board.ships)}
       <h1 className="logo">BATTLESHIP</h1>
       <div className="board_container">
         <div className="player_container">

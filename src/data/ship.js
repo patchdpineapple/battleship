@@ -12,8 +12,8 @@ const shipFactory = (type, length, coords) => {
   const isSunk = () => {
     //this method checks all coordinates and returns true if all coordinates were hit
     let hitChecker = 0;
-    for (let coord = 0; coord < coords.length; coord++) {
-      if (coords[coord].isHit === true) ++hitChecker;
+    for (let i = 0; i < coords.length; i++) {
+      if (coords[i].isHit === true) ++hitChecker;
     }
     if (hitChecker === length) {
       // console.log(`${type} is sunk`);

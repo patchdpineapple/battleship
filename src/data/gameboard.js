@@ -201,7 +201,7 @@ const gameboardFactory = () => {
     //check if occupied
     const isOccupied = (index) => {
       if (typeof boardCoordinates[index] === "undefined") {
-        console.log(boardCoordinates[index]);
+        // console.log(boardCoordinates[index]);
         return false;
       }
 
@@ -282,7 +282,7 @@ const gameboardFactory = () => {
 
     //set board to default
     setBoardCoordinates();
-    console.log(boardCoordinates.length);
+    // console.log(boardCoordinates.length);
   };
 
   return {

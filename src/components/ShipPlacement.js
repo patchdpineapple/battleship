@@ -11,8 +11,6 @@ function DragShip(props) {
   };
 
   const dragStart = (e) => {
-    e.target.style.opacity = "0.4";
-
     // console.log(target.id, type);
     e.dataTransfer.setData("ship_type", props.type);
     e.dataTransfer.setData("ship_length", props.length.length);
@@ -23,23 +21,17 @@ function DragShip(props) {
     e.dataTransfer.effectAllowed = "move";
   };
 
-  
-
   const dragEnd = (e) => {
     e.stopPropagation();
-    e.target.style.opacity = "1";
-
-    console.log(`drag end drop class: ${e.target.className}`);
-    console.log(`drag end drop effect value : ${e.dataTransfer.dropEffect}`);
+    // console.log(`drag end drop class: ${e.target.className}`);
+    // console.log(`drag end drop effect value : ${e.dataTransfer.dropEffect}`);
     if(drop_status !== "invalid"){
-      if(e.dataTransfer.dropEffect === "move") props.unshow();
+      if(e.dataTransfer.dropEffect === "move") {
+        if(!isHorizontal) toggleAxis();
+        props.unshow();
+      }
     }
-    
-
-    
   };
-
-  
 
   return (
     <>
@@ -104,11 +96,11 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
     let ship_baseIndex = player.board.boardCoordinates.findIndex(
       (coord) => coord.pos.x === coords.x && coord.pos.y === coords.y
     );
-    console.log(
-      `dropped data: ${ship_type}, length: ${ship_length}, axis: ${ship_axis}, baseCoord: ${
-        "x:" + coords.x
-      },${"y:" + coords.y}, shipIndex: ${ship_baseIndex}`
-    );
+    // console.log(
+    //   `dropped data: ${ship_type}, length: ${ship_length}, axis: ${ship_axis}, baseCoord: ${
+    //     "x:" + coords.x
+    //   },${"y:" + coords.y}, shipIndex: ${ship_baseIndex}`
+    // );
 
     let shipCoords = getCoords(ship_baseIndex, ship_length, ship_axis);
 
@@ -123,10 +115,10 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       // }
       drop_status = "valid";
     handlePlaceShip(ship_type,ship_length,shipCoords);
-    console.log(`onDrop class: ${e.target.classList}`);
+    // console.log(`onDrop class: ${e.target.classList}`);
 
     } else {
-      console.log(shipCoords);
+      // console.log(shipCoords);
       drop_status = "invalid";
     }
       

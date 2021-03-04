@@ -27,7 +27,11 @@ function App() {
 
   };
 
-  
+  const toggleTurn = () => {
+    if (turn === "cpu") setTurn("player");
+    else setTurn("cpu");
+  };
+
   const toggleResult = () => {
     //closes the start screen and shows the game screen
     setShowResult(!showResult);
@@ -36,10 +40,10 @@ function App() {
   const handlePlaceShip = (type, length, coords) => {
     //adds a ship on the player's board after drag and dropping from the ship selection scren
     let tempPlayer = player;
-    tempPlayer.board.placeShip(type, length, coords);
+  
+    tempPlayer.board.placeShip(type, parseInt(length), coords);
     setPlayer({...tempPlayer});
-    console.log('ship placed on player board');
-    
+    // console.log('ship placed on player board');
   }
 
   const onResetShipPlacement = () => {
@@ -47,7 +51,6 @@ function App() {
     let tempPlayer = player;
     tempPlayer.board.resetBoard()
     setPlayer({...tempPlayer});
-
   };
 
   const onDoneShipPlacement = () => {
@@ -71,7 +74,7 @@ function App() {
     // console.log(tempCPU.board.boardCoordinates[atkIndex]);
 
     setCPU({ ...tempCPU });
-    setTurn("cpu");
+    toggleTurn();
 
     if (tempCPU.board.reportShips()) {
       console.log("GAME OVER: You Win!");
@@ -82,7 +85,6 @@ function App() {
 
   const handleCPUAttack = () => {
     //takes a pair of coordinates and attacks opponent board
-
     let tempPlayer = player;
     let tempCPU = CPU;
     tempCPU.aiAttack(tempPlayer);
@@ -98,6 +100,9 @@ function App() {
         return toggleResult();
       }
     }, 0);
+    
+
+  
   };
 
   const handleRestartGame = () => {
@@ -113,10 +118,7 @@ function App() {
     setShowResult(!showResult);
   };
 
-  const toggleTurn = () => {
-    if (turn === "cpu") setTurn("player");
-    else setTurn("cpu");
-  };
+  
 
   return (
     <div className="App">
