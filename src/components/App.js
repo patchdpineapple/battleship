@@ -24,7 +24,6 @@ function App() {
     setShowShipPlacement(!showShipPlacement);
     setShowStart(!showStart);
     game_controller.start();
-
   };
 
   const toggleTurn = () => {
@@ -40,17 +39,17 @@ function App() {
   const handlePlaceShip = (type, length, coords) => {
     //adds a ship on the player's board after drag and dropping from the ship selection scren
     let tempPlayer = player;
-  
+
     tempPlayer.board.placeShip(type, parseInt(length), coords);
-    setPlayer({...tempPlayer});
+    setPlayer({ ...tempPlayer });
     // console.log('ship placed on player board');
-  }
+  };
 
   const onResetShipPlacement = () => {
     //reset ships
     let tempPlayer = player;
-    tempPlayer.board.resetBoard()
-    setPlayer({...tempPlayer});
+    tempPlayer.board.resetBoard();
+    setPlayer({ ...tempPlayer });
   };
 
   const onDoneShipPlacement = () => {
@@ -64,7 +63,7 @@ function App() {
     //takes a pair of coordinates and attacks opponent board 1);
     let tempPlayer = player;
     let tempCPU = CPU;
-    tempPlayer.playerAttack(targetX, targetY, tempCPU);
+    let recordResult = tempPlayer.playerAttack(targetX, targetY, tempCPU);
 
     // console.log(tempCPU.board.reportShips());
 
@@ -74,7 +73,7 @@ function App() {
     // console.log(tempCPU.board.boardCoordinates[atkIndex]);
 
     setCPU({ ...tempCPU });
-    toggleTurn();
+    if (recordResult.result === "miss") toggleTurn();
 
     if (tempCPU.board.reportShips()) {
       console.log("GAME OVER: You Win!");
@@ -87,22 +86,19 @@ function App() {
     //takes a pair of coordinates and attacks opponent board
     let tempPlayer = player;
     let tempCPU = CPU;
-    tempCPU.aiAttack(tempPlayer);
+    let recordResult = tempCPU.aiAttack(tempPlayer);
 
+    if(recordResult.result === "miss") toggleTurn();
+   
     setTimeout(() => {
-      toggleTurn();
       setPlayer({ ...tempPlayer });
-
       if (tempPlayer.board.reportShips()) {
+        toggleTurn();
         console.log("GAME OVER: CPU Win!");
         setWinner("cpu");
-
         return toggleResult();
-      }
+      } 
     }, 0);
-    
-
-  
   };
 
   const handleRestartGame = () => {
@@ -118,14 +114,19 @@ function App() {
     setShowResult(!showResult);
   };
 
-  
-
   return (
     <div className="App">
       {showResult && (
         <Result winner={winner} handleRestartGame={handleRestartGame} />
       )}
-      {showShipPlacement && <ShipPlacement player={player} handlePlaceShip={handlePlaceShip} onResetShipPlacement={onResetShipPlacement} onDoneShipPlacement={onDoneShipPlacement} />}
+      {showShipPlacement && (
+        <ShipPlacement
+          player={player}
+          handlePlaceShip={handlePlaceShip}
+          onResetShipPlacement={onResetShipPlacement}
+          onDoneShipPlacement={onDoneShipPlacement}
+        />
+      )}
       {showStart && <Start onToggleStart={toggleStart} />}
 
       {showGame && (

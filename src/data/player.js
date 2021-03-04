@@ -1,5 +1,6 @@
 const playerFactory = (board) => {
   let attacksRecord = []; //ex. [{x: 1, y: 1},{x: 1, y: 2}]
+  let previousAttackStatus = "miss"; //miss/hit/sunk
 
   const randomAttack = () => {
     //picks a coordinate to attack from a 10x10 board
@@ -24,6 +25,18 @@ const playerFactory = (board) => {
   };
 
   const aiAttack = (player) => {
+    //attacks the opponent's board and records the attack coordinate
+    let randomCoords = randomAttack();
+    let recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);
+    attacksRecord.push(randomCoords);
+    // return { ...randomCoords };
+    return {
+      coords: {...randomCoords},
+      result: recordResult
+    };
+  };
+
+  const aiAttackImproved = (player) => {
     //attacks the opponent's board and records the attack coordinate
     let randomCoords = randomAttack();
     let recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);

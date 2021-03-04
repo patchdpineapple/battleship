@@ -214,6 +214,7 @@ const gameboardFactory = () => {
 
   const receiveAttack = (targetX, targetY) => {
     //takes a coordinate and determines whether or not the attack hit a ship. also records misses
+    //returns result if miss, hit or ship is sunk
     let recordResult = "";
     boardCoordinates.forEach((coord) => {
       if (coord.pos.x === targetX && coord.pos.y === targetY) {
@@ -222,7 +223,7 @@ const gameboardFactory = () => {
           recordResult = coord.status = "miss";
         } else {
           recordResult = coord.status = "hit";
-          //find the ship and update the same coord's hit status to true
+          //find the ship's coordinate and update its isHit status to true then check if ship is sunk 
           ships.forEach((ship) => {
             if (ship.type === coord.ship) {
               ship.hit(targetX, targetY);
