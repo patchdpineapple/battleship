@@ -19,41 +19,50 @@ const playerFactory = (board) => {
   const playerAttack = (targetX, targetY, cpu) => {
     let recordResult = cpu.board.receiveAttack(targetX, targetY);
     return {
-      coords: {x: targetX, y: targetY},
-      result: recordResult
+      coords: { x: targetX, y: targetY },
+      result: recordResult,
     };
   };
 
   const aiAttack = (player) => {
     //attacks the opponent's board and records the attack coordinate
     let randomCoords = randomAttack();
-    let recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);
+    let recordResult = player.board.receiveAttack(
+      randomCoords.x,
+      randomCoords.y
+    );
     attacksRecord.push(randomCoords);
     // return { ...randomCoords };
     return {
-      coords: {...randomCoords},
-      result: recordResult
+      coords: { ...randomCoords },
+      result: recordResult,
     };
   };
 
   const aiAttackImproved = (player) => {
     //attacks the opponent's board and records the attack coordinate
-    let randomCoords = randomAttack();
-    let recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);
-    attacksRecord.push(randomCoords);
+    let randomCoords;
+    let recordResult;
+    if (previousAttackStatus === "miss") {
+      randomCoords = randomAttack();
+      recordResult = player.board.receiveAttack(randomCoords.x, randomCoords.y);
+      attacksRecord.push(randomCoords);
+      previousAttackStatus = recordResult;
+    }
+
     // return { ...randomCoords };
     return {
-      coords: {...randomCoords},
-      result: recordResult
+      coords: { ...randomCoords },
+      result: recordResult,
     };
   };
 
   const resetAttacksRecord = () => {
     let attacksRecordLength = attacksRecord.length;
-    for(let i=0;i<attacksRecordLength;i++){
+    for (let i = 0; i < attacksRecordLength; i++) {
       attacksRecord.pop();
     }
-  }
+  };
 
   return {
     board,

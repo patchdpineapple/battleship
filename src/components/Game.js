@@ -12,14 +12,16 @@ function Panel({
 }) {
   const onPlayerAttack = () => {
     handlePlayerAttack(coords.x, coords.y);
-  }
-    
+  };
+
   if (ship) {
     return (
       <>
-        {status === "sunk" ? <button className="Panel sunk" >x</button> : null}
+        {status === "sunk" ? <button className="Panel sunk">x</button> : null}
         {status === "hit" ? (
-          <button className={`Panel hit ${type === "player" ? "ship" : "ship"}`}>
+          <button
+            className={`Panel hit ${type === "player" ? "ship" : "ship"}`}
+          >
             x
           </button>
         ) : null}
@@ -30,7 +32,9 @@ function Panel({
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(`${ship}[${coords.x},${coords.y}] index[${index}]`);
+                return console.log(
+                  `${ship}[${coords.x},${coords.y}] index[${index}]`
+                );
               }
             }}
           />
@@ -48,7 +52,9 @@ function Panel({
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(`${ship}[${coords.x},${coords.y}] index[${index}]`);
+                return console.log(
+                  `${ship}[${coords.x},${coords.y}] index[${index}]`
+                );
               }
             }}
           />
@@ -58,14 +64,29 @@ function Panel({
   }
 }
 
+function Restart({ onToggleRestart, handleRestartGame }) {
+  return (
+    <div className="Restart" onClick={onToggleRestart}>
+      <div className="Restart_container">
+        <h2>Restart the game?</h2>
+        <button className="btn" onClick={handleRestartGame}>
+          Restart
+        </button>
+        <button className="btn" onClick={onToggleRestart}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Game({
   player,
   CPU,
   turn,
-  toggleTurn,
+  onToggleRestart,
   handlePlayerAttack,
   handleCPUAttack,
-  toggleResult,
 }) {
   useEffect(
     //checks if it is cpu's turn and attacks player's board
@@ -78,8 +99,15 @@ function Game({
   );
 
   return (
-    <div className="Game"> {console.log("player", player.board.ships)}{console.log("cpu", CPU.board.ships)}
-      <h1 className="logo">BATTLESHIP</h1>
+    <div className="Game">
+      {" "}
+      {console.log("player", player.board.ships)}
+      {console.log("cpu", CPU.board.ships)}
+      <div className="logo">
+        <button className="btn_logo" onClick={onToggleRestart}>
+          BATTLESHIP
+        </button>
+      </div>
       <div className="board_container">
         <div className="player_container">
           <p style={{ fontSize: "30px" }}>Player</p>
@@ -124,3 +152,4 @@ function Game({
 }
 
 export default Game;
+export { Restart };

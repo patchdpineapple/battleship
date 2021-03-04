@@ -3,9 +3,43 @@
   padding-right: 1vw;
   padding-bottom: 3vh;
 }
+
+.Restart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.Restart_container{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #1b1b1e;
+  border-radius: 10px;
+  background-color: #d81159;
+  text-align: center;
+  padding: 5vw;
+  box-shadow: 0px 0px 5px black;
+}
+
 .logo {
+  
   padding: 10px;
   text-align: center;
+}
+
+.btn_logo {
+  font-size: 36px;
+  border: none;
+  background-color: #d81159;
 }
 
 .status_container {

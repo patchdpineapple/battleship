@@ -3,6 +3,7 @@ import "./App.css";
 import Start from "./Start";
 import ShipPlacement from "./ShipPlacement";
 import Game from "./Game";
+import { Restart } from "./Game";
 import Result from "./Result";
 import game_controller from "../game-controller";
 
@@ -16,6 +17,7 @@ function App() {
   const [showStart, setShowStart] = useState(true);
   const [showShipPlacement, setShowShipPlacement] = useState(false);
   const [showGame, setShowGame] = useState(false);
+  const [showRestart, setShowRestart] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [winner, setWinner] = useState("none");
 
@@ -24,6 +26,11 @@ function App() {
     setShowShipPlacement(!showShipPlacement);
     setShowStart(!showStart);
     game_controller.start();
+  };
+
+  const toggleRestart = () => {
+    //opens or closes the restart screen
+    setShowRestart(!showRestart);
   };
 
   const toggleTurn = () => {
@@ -105,13 +112,13 @@ function App() {
     //reset player boards
 
     game_controller.resetGame();
-    // setPlayer(game_controller.Player);
-    // setCPU(game_controller.CPU);
+    
     //toggle start screen and game screen
-
     setShowStart(!showStart);
     setShowGame(!showGame);
-    setShowResult(!showResult);
+    if(showRestart) setShowRestart(!showRestart);
+    if(showResult) setShowResult(!showResult);
+    
   };
 
   return (
@@ -128,16 +135,15 @@ function App() {
         />
       )}
       {showStart && <Start onToggleStart={toggleStart} />}
-
+      {showRestart && <Restart onToggleRestart={toggleRestart} handleRestartGame={handleRestartGame}/>}
       {showGame && (
         <Game
           player={player}
           CPU={CPU}
           turn={turn}
-          toggleTurn={toggleTurn}
+          onToggleRestart={toggleRestart}
           handlePlayerAttack={handlePlayerAttack}
           handleCPUAttack={handleCPUAttack}
-          toggleResult={toggleResult}
         />
       )}
     </div>
