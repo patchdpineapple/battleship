@@ -69,10 +69,10 @@ function Restart({ onToggleRestart, handleRestartGame }) {
     <div className="Restart" onClick={onToggleRestart}>
       <div className="Restart_container">
         <h2>Restart the game?</h2>
-        <button className="btn" onClick={handleRestartGame}>
+        <button className="btn btn_restart" onClick={handleRestartGame}>
           Restart
         </button>
-        <button className="btn" onClick={onToggleRestart}>
+        <button className="btn btn_cancel" onClick={onToggleRestart}>
           Cancel
         </button>
       </div>
@@ -100,9 +100,6 @@ function Game({
 
   return (
     <div className="Game">
-      {" "}
-      {console.log("player", player.board.ships)}
-      {console.log("cpu", CPU.board.ships)}
       <div className="logo">
         <button className="btn_logo" onClick={onToggleRestart}>
           BATTLESHIP

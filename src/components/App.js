@@ -93,11 +93,12 @@ function App() {
     //takes a pair of coordinates and attacks opponent board
     let tempPlayer = player;
     let tempCPU = CPU;
-    let recordResult = tempCPU.aiAttack(tempPlayer);
+    let recordResult = tempCPU.aiAttackImproved(tempPlayer);
 
-    if(recordResult.result === "miss") toggleTurn();
    
     setTimeout(() => {
+    if(recordResult.result === "miss") toggleTurn();
+
       setPlayer({ ...tempPlayer });
       if (tempPlayer.board.reportShips()) {
         toggleTurn();
@@ -105,7 +106,7 @@ function App() {
         setWinner("cpu");
         return toggleResult();
       } 
-    }, 0);
+    }, 1000);
   };
 
   const handleRestartGame = () => {

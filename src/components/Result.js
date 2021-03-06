@@ -7,7 +7,7 @@ function Result({winner, handleRestartGame}) {
     <div className="Result">
       <div className="Result_container">
         <strong>{ winner === "player" ? "Good job! You win!" : "Game over. CPU wins."}</strong>
-        <button className="btn" onClick={handleRestartGame}>Play again</button>
+        <button className="btn btn_playAgain" onClick={handleRestartGame}>Play again</button>
       </div>
     </div>
   );

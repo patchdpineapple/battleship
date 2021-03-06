@@ -286,6 +286,10 @@ const gameboardFactory = () => {
     // console.log(boardCoordinates.length);
   };
 
+  const findBoardIndex = (x,y) => {
+    return boardCoordinates.findIndex( coord => coord.pos.x === x && coord.pos.y === y);
+  }
+
   return {
     ships,
     boardCoordinates,
@@ -296,6 +300,7 @@ const gameboardFactory = () => {
     updateToSunk,
     resetBoard,
     randomizeShip,
+    findBoardIndex,
   };
 };
 
