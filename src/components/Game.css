@@ -117,6 +117,7 @@
 
 .miss {
   color: black;
+  font-size: 14px;
 }
 
 .sunk {
@@ -124,6 +125,10 @@
   background-color: rgb(37, 37, 37);
 }
 
+/*icons*/
+.fa-times-circle {
+  color:rgb(255, 65, 65);
+}
 
 @media (max-width: 1115) {
   .board_container {
@@ -131,11 +136,11 @@
   }
 }
 
-
 @media (max-width: 440px) {
   .Panel {
     width: 21px;
     height: 21px;
+    font-size: 16px;
   }
 }
 

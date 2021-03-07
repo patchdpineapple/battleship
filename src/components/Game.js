@@ -17,12 +17,12 @@ function Panel({
   if (ship) {
     return (
       <>
-        {status === "sunk" ? <button className="Panel sunk">x</button> : null}
+        {status === "sunk" ? <button className="Panel sunk"><i class="far fa-times-circle"></i></button> : null}
         {status === "hit" ? (
           <button
             className={`Panel hit ${type === "player" ? "ship" : "ship"}`}
           >
-            x
+            <i class="far fa-times-circle"></i>
           </button>
         ) : null}
         {status === null ? (
@@ -44,7 +44,7 @@ function Panel({
   } else {
     return (
       <>
-        {status === "miss" ? <button className="Panel miss">-</button> : null}
+        {status === "miss" ? <button className="Panel miss"><i class="fas fa-circle fa-xs"></i></button> : null}
         {status === null ? (
           <button
             className="Panel"
