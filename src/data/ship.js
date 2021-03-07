@@ -16,10 +16,8 @@ const shipFactory = (type, length, coords) => {
       if (coords[i].isHit === true) ++hitChecker;
     }
     if (hitChecker === length) {
-      // console.log(`${type} is sunk`);
       return true;
-    }
-    else return false;
+    } else return false;
   };
 
   return {

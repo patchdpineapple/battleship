@@ -1,13 +1,16 @@
 import React from "react";
 import "./Result.css";
 
-function Result({winner, handleRestartGame}) {
-  
+function Result({ winner, handleRestartGame }) {
   return (
     <div className="Result">
       <div className="Result_container">
-        <strong>{ winner === "player" ? "Good job! You win!" : "Game over. CPU wins."}</strong>
-        <button className="btn btn_playAgain" onClick={handleRestartGame}>Play again</button>
+        <strong>
+          {winner === "player" ? "Good job! You win!" : "Game over. CPU wins."}
+        </strong>
+        <button className="btn btn_playAgain" onClick={handleRestartGame}>
+          Play again
+        </button>
       </div>
     </div>
   );

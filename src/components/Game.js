@@ -17,12 +17,16 @@ function Panel({
   if (ship) {
     return (
       <>
-        {status === "sunk" ? <button className="Panel sunk"><i class="far fa-times-circle"></i></button> : null}
+        {status === "sunk" ? (
+          <button className="Panel sunk">
+            <i className="far fa-times-circle"></i>
+          </button>
+        ) : null}
         {status === "hit" ? (
           <button
             className={`Panel hit ${type === "player" ? "ship" : "ship"}`}
           >
-            <i class="far fa-times-circle"></i>
+            <i className="far fa-times-circle"></i>
           </button>
         ) : null}
         {status === null ? (
@@ -32,9 +36,7 @@ function Panel({
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(
-                  `${ship}[${coords.x},${coords.y}] index[${index}]`
-                );
+                return ;
               }
             }}
           />
@@ -44,7 +46,11 @@ function Panel({
   } else {
     return (
       <>
-        {status === "miss" ? <button className="Panel miss"><i class="fas fa-circle fa-xs"></i></button> : null}
+        {status === "miss" ? (
+          <button className="Panel miss">
+            <i className="fas fa-circle fa-xs"></i>
+          </button>
+        ) : null}
         {status === null ? (
           <button
             className="Panel"
@@ -52,9 +58,7 @@ function Panel({
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();
               } else {
-                return console.log(
-                  `${ship}[${coords.x},${coords.y}] index[${index}]`
-                );
+                return ;
               }
             }}
           />

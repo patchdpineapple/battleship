@@ -17,7 +17,7 @@
   margin: auto;
 }
 
-.Restart_container{
+.Restart_container {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -31,7 +31,6 @@
 }
 
 .logo {
-  
   padding: 10px;
   text-align: center;
 }
@@ -127,7 +126,7 @@
 
 /*icons*/
 .fa-times-circle {
-  color:rgb(255, 65, 65);
+  color: rgb(255, 65, 65);
 }
 
 @media (max-width: 1115) {
@@ -143,5 +142,3 @@
     font-size: 16px;
   }
 }
-
-

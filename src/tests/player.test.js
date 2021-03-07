@@ -37,7 +37,6 @@ test("player placing ships work", () => {
   expect(cpu.board.boardCoordinates[20].ship).toBe("Submarine");
   expect(cpu.board.boardCoordinates[30].ship).toBe("Submarine");
   expect(cpu.board.boardCoordinates[40].ship).toBe("Submarine");
-
 });
 
 test("playerAttack() updates opponent board status", () => {
@@ -46,16 +45,18 @@ test("playerAttack() updates opponent board status", () => {
   expect(cpu.board.boardCoordinates[20].isAttacked).toBe(true);
   expect(cpu.board.boardCoordinates[20].status).toBe("hit");
   expect(cpu.board.boardCoordinates[50].status).toBe("miss");
-
 });
 
 test("aiAttack() updates player board status", () => {
   let recordAttack = cpu.aiAttack(player);
-  
+
   let attackedCoord = player.board.boardCoordinates.findIndex(
-    (coord) => coord.pos.x === recordAttack.coords.x && coord.pos.y === recordAttack.coords.y
+    (coord) =>
+      coord.pos.x === recordAttack.coords.x &&
+      coord.pos.y === recordAttack.coords.y
   );
   expect(player.board.boardCoordinates[attackedCoord].isAttacked).toBe(true);
-  expect(player.board.boardCoordinates[attackedCoord].status).toBe(recordAttack.result);
-
+  expect(player.board.boardCoordinates[attackedCoord].status).toBe(
+    recordAttack.result
+  );
 });

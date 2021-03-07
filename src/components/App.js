@@ -13,9 +13,6 @@ import win_sound from "../sounds/win.wav";
 import lose_sound from "../sounds/lose.wav";
 import start from "../sounds/start game.ogg";
 
-
-
-
 function App() {
   const [turn, setTurn] = useState(game_controller.turn);
   const [player, setPlayer] = useState(game_controller.Player);
@@ -80,10 +77,9 @@ function App() {
 
     setCPU({ ...tempCPU });
     if (recordResult.result === "miss") toggleTurn();
-  
+
     //if all cpu ships are sunk show player win
     if (tempCPU.board.reportShips()) {
-      console.log("GAME OVER: You Win!");
       setWinner("player");
       playSound("win");
       return toggleResult();
@@ -97,20 +93,18 @@ function App() {
     let tempPlayer = player;
     let tempCPU = CPU;
     let recordResult = tempCPU.aiAttackImproved(tempPlayer);
-    
 
     setTimeout(() => {
-    //if all player ships are sunk show cpu win
+      //if all player ships are sunk show cpu win
       if (recordResult.result === "miss") toggleTurn();
       setPlayer({ ...tempPlayer });
       if (tempPlayer.board.reportShips()) {
         toggleTurn();
-        console.log("GAME OVER: CPU Win!");
         setWinner("cpu");
         playSound("lose");
         return toggleResult();
       } else {
-       playSound(recordResult.result);
+        playSound(recordResult.result);
       }
     }, 1500);
   };
@@ -144,14 +138,13 @@ function App() {
         break;
       case "lose":
         audio.src = lose_sound;
-        break; 
+        break;
       case "start":
         audio.src = start;
-        break; 
+        break;
       default:
     }
     if (!audio) return;
-    console.log(audio);
     audio.currentTime = 0;
     audio.play();
   };

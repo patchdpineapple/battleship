@@ -1,44 +1,38 @@
 .Start {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    padding: 0;
-
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding: 0;
 }
 
 .Start > strong {
-    margin-top: 25vh;
-    font-size: 13vw;
+  margin-top: 25vh;
+  font-size: 13vw;
 }
 
 .Start > p {
-    margin-top: -2vw;
+  margin-top: -2vw;
 }
 
 .Start > button {
-    margin-top: 15vh;
-    color: #d81159;
-    font-size: 3vw;
-} 
+  margin-top: 15vh;
+  color: #d81159;
+  font-size: 3vw;
+}
 
 @media (max-width: 414px) {
-    
+  .Start > strong {
+    margin-top: 25vh;
+    font-size: 20vw;
+  }
 
-    .Start > strong {
-        margin-top: 25vh;
-        font-size: 20vw;
-    }
+  .Start > p {
+    font-size: 5vw;
+  }
 
-    .Start > p {
-        font-size: 5vw;
-
-    }
-
-    .Start > button {
-        
-        font-size: 6vw;
-    } 
-
+  .Start > button {
+    font-size: 6vw;
+  }
 }

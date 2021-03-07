@@ -22,10 +22,10 @@ function DragShip(props) {
 
   const dragEnd = (e) => {
     e.stopPropagation();
-    
-    if(drop_status !== "invalid"){
-      if(e.dataTransfer.dropEffect === "move") {
-        if(!isHorizontal) toggleAxis(); //reset axis
+
+    if (drop_status !== "invalid") {
+      if (e.dataTransfer.dropEffect === "move") {
+        if (!isHorizontal) toggleAxis(); //reset axis
         props.unshow();
       }
     }
@@ -35,22 +35,21 @@ function DragShip(props) {
     <>
       {props.show ? (
         <div
-        id={props.id}
-        type={props.type}
-        length={props.length.length}
-        className={`DragShip ${isHorizontal ? "horizontal" : "vertical"}`}
-        onClick={toggleAxis}
-        draggable={true}
-        onDragStart={dragStart}
-        onDragEnd={dragEnd}
-        
-      >
-        {props.length.map((x, i) => (
-          <div key={i} className="selectShip"></div>
-        ))}
-      </div>
+          id={props.id}
+          type={props.type}
+          length={props.length.length}
+          className={`DragShip ${isHorizontal ? "horizontal" : "vertical"}`}
+          onClick={toggleAxis}
+          draggable={true}
+          onDragStart={dragStart}
+          onDragEnd={dragEnd}
+        >
+          {props.length.map((x, i) => (
+            <div key={i} className="selectShip"></div>
+          ))}
+        </div>
       ) : (
-        <div/>
+        <div />
       )}
     </>
   );
@@ -59,17 +58,46 @@ function DragShip(props) {
 function ShipSelection(props) {
   return (
     <div className="ShipSelection">
-      <DragShip id={1} type="Patrol" length={[1, 2]} show={props.showPatrol} unshow={props.handleUnshowPatrol} />
-      <DragShip id={2} type="Submarine" length={[1, 2, 3]} show={props.showSubmarine} unshow={props.handleUnshowSubmarine} />
-      <DragShip id={3} type="Destroyer" length={[1, 2, 3]} show={props.showDestroyer} unshow={props.handleUnshowDestroyer} />
-      <DragShip id={4} type="Battleship" length={[1, 2, 3, 4]} show={props.showBattleship} unshow={props.handleUnshowBattleship} />
-      <DragShip id={5} type="Carrier" length={[1, 2, 3, 4, 5]} show={props.showCarrier} unshow={props.handleUnshowCarrier} />
+      <DragShip
+        id={1}
+        type="Patrol"
+        length={[1, 2]}
+        show={props.showPatrol}
+        unshow={props.handleUnshowPatrol}
+      />
+      <DragShip
+        id={2}
+        type="Submarine"
+        length={[1, 2, 3]}
+        show={props.showSubmarine}
+        unshow={props.handleUnshowSubmarine}
+      />
+      <DragShip
+        id={3}
+        type="Destroyer"
+        length={[1, 2, 3]}
+        show={props.showDestroyer}
+        unshow={props.handleUnshowDestroyer}
+      />
+      <DragShip
+        id={4}
+        type="Battleship"
+        length={[1, 2, 3, 4]}
+        show={props.showBattleship}
+        unshow={props.handleUnshowBattleship}
+      />
+      <DragShip
+        id={5}
+        type="Carrier"
+        length={[1, 2, 3, 4, 5]}
+        show={props.showCarrier}
+        unshow={props.handleUnshowCarrier}
+      />
     </div>
   );
 }
 
 function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
-
   const dragOver = (e) => {
     //show hover over color
     e.preventDefault();
@@ -87,39 +115,22 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
     //remove hovered over color
     e.target.classList.remove("draggingOver");
 
-    //returns a new 
+    //returns a new
     let ship_type = e.dataTransfer.getData("ship_type");
     let ship_length = e.dataTransfer.getData("ship_length");
     let ship_axis = e.dataTransfer.getData("ship_axis");
     let ship_baseIndex = player.board.boardCoordinates.findIndex(
       (coord) => coord.pos.x === coords.x && coord.pos.y === coords.y
     );
-    // console.log(
-    //   `dropped data: ${ship_type}, length: ${ship_length}, axis: ${ship_axis}, baseCoord: ${
-    //     "x:" + coords.x
-    //   },${"y:" + coords.y}, shipIndex: ${ship_baseIndex}`
-    // );
-
     let shipCoords = getCoords(ship_baseIndex, ship_length, ship_axis);
 
     //for testing only
     if (shipCoords) {
-      // console.clear();
-      // console.log(shipCoords);
-      // for (let i = 0; i < ship_length; i++) {
-      //   console.log(
-      //     `coord ${i + 1}: ${shipCoords[i].pos.x},${shipCoords[i].pos.y}`
-      //   );
-      // }
       drop_status = "valid";
-    handlePlaceShip(ship_type,ship_length,shipCoords);
-    // console.log(`onDrop class: ${e.target.classList}`);
-
+      handlePlaceShip(ship_type, ship_length, shipCoords);
     } else {
-      // console.log(shipCoords);
       drop_status = "invalid";
     }
-      
   };
 
   const getCoords = (index, length, axis) => {
@@ -129,13 +140,17 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
     let shipIndexesArray = [];
     let shipCoords = [];
     let invalid = 0;
-    let occupied = 0; 
+    let occupied = 0;
     let invalidBaseIndexes = []; //array of all invalid base indexes(0,1,2,...,9)/(0,10,20,...,90) depending on length and axis
-    let invalidIndexesArray = []; //array of all invalid indexes 
+    let invalidIndexesArray = []; //array of all invalid indexes
 
     //used to check if dropped shipIndex is invalid
     const isInvalid = (baseIndex, invalidIndexes) => {
-        return invalidIndexes.findIndex((invalidIndex) => invalidIndex === baseIndex) > -1 ? true : false;
+      return invalidIndexes.findIndex(
+        (invalidIndex) => invalidIndex === baseIndex
+      ) > -1
+        ? true
+        : false;
     };
 
     //used to check if the current shipIndex is already occupied or undefined
@@ -152,7 +167,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       increment = 1;
 
       //fill array with invalid lowest indexes depending on length
-      for (let i = 11-length; i < 10; i++) {
+      for (let i = 11 - length; i < 10; i++) {
         invalidBaseIndexes.push(i);
       }
 
@@ -167,8 +182,8 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       }
     } else if (axis === "vertical") {
       increment = 10;
-      
-      for (let i = 110-length*10; i < 100; i+=10) {
+
+      for (let i = 110 - length * 10; i < 100; i += 10) {
         invalidBaseIndexes.push(i);
       }
 
@@ -192,7 +207,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
       shipIndex += increment;
     }
 
-    if(invalid > 0 || occupied > 0) return null;
+    if (invalid > 0 || occupied > 0) return null;
 
     //convert and store ship indexes as ship coordinates
     for (let i = 0; i < shipIndexesArray.length; i++) {
@@ -207,8 +222,7 @@ function DropPanel({ index, player, ship, coords, handlePlaceShip }) {
 
   return (
     <button
-      className={`DropPanel ${ship ? "dropped":"not_dropped" }`}
-      onClick={() => console.log(`shipIndex[${index}]`)}
+      className={`DropPanel ${ship ? "dropped" : "not_dropped"}`}
       onDrop={drop}
       onDragOver={dragOver}
       onDragLeave={dragLeave}
@@ -233,8 +247,12 @@ function DropBoard({ player, handlePlaceShip }) {
   );
 }
 
-function ShipPlacement({ player, handlePlaceShip, onResetShipPlacement, onDoneShipPlacement }) {
-  
+function ShipPlacement({
+  player,
+  handlePlaceShip,
+  onResetShipPlacement,
+  onDoneShipPlacement,
+}) {
   const [showPatrol, setShowPatrol] = useState(true);
   const [showSubmarine, setShowSubmarine] = useState(true);
   const [showDestroyer, setShowDestroyer] = useState(true);
@@ -243,24 +261,23 @@ function ShipPlacement({ player, handlePlaceShip, onResetShipPlacement, onDoneSh
 
   const handleUnshowPatrol = () => {
     setShowPatrol(false);
-  }
+  };
 
   const handleUnshowSubmarine = () => {
     setShowSubmarine(false);
-  }
+  };
 
   const handleUnshowDestroyer = () => {
     setShowDestroyer(false);
-  }
+  };
 
   const handleUnshowBattleship = () => {
     setShowBattleship(false);
-  }
+  };
 
   const handleUnshowCarrier = () => {
     setShowCarrier(false);
-  }
-
+  };
 
   const handleResetShips = () => {
     setShowPatrol(true);
@@ -269,30 +286,36 @@ function ShipPlacement({ player, handlePlaceShip, onResetShipPlacement, onDoneSh
     setShowBattleship(true);
     setShowCarrier(true);
     onResetShipPlacement();
-  }
+  };
 
   return (
     <div className="ShipPlacement">
       <div className="ShipPlacement_container">
         <DropBoard player={player} handlePlaceShip={handlePlaceShip} />
-        <ShipSelection 
-        showPatrol={showPatrol} 
-        handleUnshowPatrol={handleUnshowPatrol} 
-        showSubmarine={showSubmarine}  
-        handleUnshowSubmarine={handleUnshowSubmarine} 
-        showDestroyer={showDestroyer} 
-        handleUnshowDestroyer={handleUnshowDestroyer} 
-        showBattleship={showBattleship} 
-        handleUnshowBattleship={handleUnshowBattleship} 
-        showCarrier={showCarrier} 
-        handleUnshowCarrier={handleUnshowCarrier} 
+        <ShipSelection
+          showPatrol={showPatrol}
+          handleUnshowPatrol={handleUnshowPatrol}
+          showSubmarine={showSubmarine}
+          handleUnshowSubmarine={handleUnshowSubmarine}
+          showDestroyer={showDestroyer}
+          handleUnshowDestroyer={handleUnshowDestroyer}
+          showBattleship={showBattleship}
+          handleUnshowBattleship={handleUnshowBattleship}
+          showCarrier={showCarrier}
+          handleUnshowCarrier={handleUnshowCarrier}
         />
       </div>
-      <p>Drag and Drop to place a ship on the board. Click to change ship axis.</p>
+      <p>
+        Drag and Drop to place a ship on the board. Click to change ship axis.
+      </p>
       <div>
-        <button className="btn reset" onClick={handleResetShips}>Reset</button>
+        <button className="btn reset" onClick={handleResetShips}>
+          Reset
+        </button>
         <button
-          className={`btn done ${player.board.ships.length !== 5 ? "btn_disabled" : ""}`}
+          className={`btn done ${
+            player.board.ships.length !== 5 ? "btn_disabled" : ""
+          }`}
           onClick={onDoneShipPlacement}
           disabled={player.board.ships.length === 5 ? false : true}
         >

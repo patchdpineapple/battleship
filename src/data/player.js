@@ -30,7 +30,6 @@ const playerFactory = (board) => {
       randomCoords.y
     );
     attacksRecord.push(randomCoords);
-    // return { ...randomCoords };
     return {
       coords: { ...randomCoords },
       result: attackResult,
@@ -112,10 +111,10 @@ const playerFactory = (board) => {
         attackX > 0 &&
         checkAttacksRecord(attackX, prevAttackCoords.y) === -1
       ) {
-        let returnCoord = { 
-          x: attackX, 
-          y: prevAttackCoords.y };
-          console.log(returnCoord);
+        let returnCoord = {
+          x: attackX,
+          y: prevAttackCoords.y,
+        };
         return returnCoord;
       } else {
         checkRight = !checkRight;
@@ -136,10 +135,10 @@ const playerFactory = (board) => {
         attackY > 0 &&
         checkAttacksRecord(prevAttackCoords.x, attackY) === -1
       ) {
-        let returnCoord = { 
-          x: prevAttackCoords.x, 
-          y: attackY };
-          console.log(returnCoord);
+        let returnCoord = {
+          x: prevAttackCoords.x,
+          y: attackY,
+        };
         return returnCoord;
       } else {
         checkUp = !checkUp;
@@ -226,13 +225,12 @@ const playerFactory = (board) => {
         if (targetAxis === "horizontal") {
           do {
             attackCoords = attackHorizontal();
-          } while (typeof attackCoords === "undefined")
+          } while (typeof attackCoords === "undefined");
         } else if (targetAxis === "vertical") {
           do {
             attackCoords = attackVertical();
-          } while (typeof attackCoords === "undefined")
+          } while (typeof attackCoords === "undefined");
         }
-        console.log(attackCoords);
         attackResult = player.board.receiveAttack(
           attackCoords.x,
           attackCoords.y
@@ -250,8 +248,7 @@ const playerFactory = (board) => {
           targetAcquired = false;
           targetShip = "";
           targetAxis = null;
-        }
-        else if (
+        } else if (
           (attackResult === "hit" &&
             player.board.boardCoordinates[prevAttackIndex].ship !==
               targetShip) ||
@@ -272,7 +269,6 @@ const playerFactory = (board) => {
       }
     }
 
-    // return { ...randomCoords };
     return {
       coords: { ...prevAttackCoords },
       result: attackResult,

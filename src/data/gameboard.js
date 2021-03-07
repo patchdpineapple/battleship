@@ -1,7 +1,7 @@
 import shipFactory from "./ship";
 
 const gameboardFactory = () => {
-  /* board coordinates sample = [
+  /* ex. board coordinates = [
     {pos: { x: 1, y: 1 }, ship: null, isAttacked: false, status: "hit"},
     {pos: { x: 1, y: 2 }, ship: 'Patrol', isAttacked: false, status: "hit"}
     {pos: { x: 1, y: 3 }, ship: 'Patrol', isAttacked: true, status: "hit"}
@@ -10,7 +10,7 @@ const gameboardFactory = () => {
   */
   let boardCoordinates = [];
 
-  let ships = []; /*
+  let ships = []; /* ex.
   [
     { type: 'Patrol', length: 2, 
   coords:  
@@ -201,7 +201,6 @@ const gameboardFactory = () => {
     //check if occupied
     const isOccupied = (index) => {
       if (typeof boardCoordinates[index] === "undefined") {
-        // console.log(boardCoordinates[index]);
         return false;
       }
 
@@ -223,7 +222,7 @@ const gameboardFactory = () => {
           recordResult = coord.status = "miss";
         } else {
           recordResult = coord.status = "hit";
-          //find the ship's coordinate and update its isHit status to true then check if ship is sunk 
+          //find the ship's coordinate and update its isHit status to true then check if ship is sunk
           ships.forEach((ship) => {
             if (ship.type === coord.ship) {
               ship.hit(targetX, targetY);
@@ -283,12 +282,13 @@ const gameboardFactory = () => {
 
     //set board to default
     setBoardCoordinates();
-    // console.log(boardCoordinates.length);
   };
 
-  const findBoardIndex = (x,y) => {
-    return boardCoordinates.findIndex( coord => coord.pos.x === x && coord.pos.y === y);
-  }
+  const findBoardIndex = (x, y) => {
+    return boardCoordinates.findIndex(
+      (coord) => coord.pos.x === x && coord.pos.y === y
+    );
+  };
 
   return {
     ships,
