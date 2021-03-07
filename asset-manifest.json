@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/battleship/static/css/main.44aede27.chunk.css",
+    "main.js": "/battleship/static/js/main.fbd977f9.chunk.js",
+    "main.js.map": "/battleship/static/js/main.fbd977f9.chunk.js.map",
+    "runtime-main.js": "/battleship/static/js/runtime-main.8540f0f8.js",
+    "runtime-main.js.map": "/battleship/static/js/runtime-main.8540f0f8.js.map",
+    "static/js/2.9d2d9e48.chunk.js": "/battleship/static/js/2.9d2d9e48.chunk.js",
+    "static/js/2.9d2d9e48.chunk.js.map": "/battleship/static/js/2.9d2d9e48.chunk.js.map",
+    "index.html": "/battleship/index.html",
+    "static/css/main.44aede27.chunk.css.map": "/battleship/static/css/main.44aede27.chunk.css.map",
+    "static/js/2.9d2d9e48.chunk.js.LICENSE.txt": "/battleship/static/js/2.9d2d9e48.chunk.js.LICENSE.txt",
+    "static/media/cannonshot 8bit.bc64263f.wav": "/battleship/static/media/cannonshot 8bit.bc64263f.wav",
+    "static/media/explode 8bit.9143f8a8.wav": "/battleship/static/media/explode 8bit.9143f8a8.wav",
+    "static/media/lose.af07075d.wav": "/battleship/static/media/lose.af07075d.wav",
+    "static/media/splash2.19ae4f12.flac": "/battleship/static/media/splash2.19ae4f12.flac",
+    "static/media/start game.35972233.ogg": "/battleship/static/media/start game.35972233.ogg",
+    "static/media/win.3a1474da.wav": "/battleship/static/media/win.3a1474da.wav"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8540f0f8.js",
+    "static/js/2.9d2d9e48.chunk.js",
+    "static/css/main.44aede27.chunk.css",
+    "static/js/main.fbd977f9.chunk.js"
+  ]
+}
