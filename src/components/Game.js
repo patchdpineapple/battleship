@@ -27,7 +27,7 @@ function Panel({
         ) : null}
         {status === null ? (
           <button
-            className={`Panel ${type === "player" ? "ship" : "ship"}`}
+            className={`Panel ${type === "player" ? "ship" : ""}`}
             onClick={() => {
               if (type === "cpu" && turn === "player") {
                 return onPlayerAttack();

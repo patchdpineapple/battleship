@@ -11,7 +11,6 @@ function DragShip(props) {
   };
 
   const dragStart = (e) => {
-    // console.log(target.id, type);
     e.dataTransfer.setData("ship_type", props.type);
     e.dataTransfer.setData("ship_length", props.length.length);
     e.dataTransfer.setData(
@@ -23,11 +22,10 @@ function DragShip(props) {
 
   const dragEnd = (e) => {
     e.stopPropagation();
-    // console.log(`drag end drop class: ${e.target.className}`);
-    // console.log(`drag end drop effect value : ${e.dataTransfer.dropEffect}`);
+    
     if(drop_status !== "invalid"){
       if(e.dataTransfer.dropEffect === "move") {
-        if(!isHorizontal) toggleAxis();
+        if(!isHorizontal) toggleAxis(); //reset axis
         props.unshow();
       }
     }
